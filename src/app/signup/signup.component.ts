@@ -14,6 +14,7 @@ export class SignupComponent implements OnInit {
 
     signupData = { username:'', password:'' };
     message = '';
+    response:any;
 
     constructor(private http: HttpClient, private router: Router) { 
 
@@ -21,8 +22,12 @@ export class SignupComponent implements OnInit {
 
     signup() {
         this.http.post('/api/signup',this.signupData).subscribe(resp => {
-            console.log(resp);
-            this.router.navigate(['login']);
+            this.response = resp;
+            if(this.response.success) {
+                this.router.navigate(['login']);
+            } else {
+                this.message = this.response.msg;
+            }
         }, err => {
             this.message = err.error.msg;
        });

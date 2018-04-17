@@ -13,7 +13,7 @@
         <input type="password" class="form-control" placeholder="Password" [(ngModel)]="loginData.password" name="password" required/>
         <button class="btn btn-lg btn-primary btn-block" type="submit" [disabled]="!loginForm.form.valid">Sign in</button>
         <p>
-            Not a member? <a [routerLink]="['/signup']">Signup here</a>
+            Not a user? <a [routerLink]="['/signup']">Signup here</a>
         </p>
     </form>
 </div>

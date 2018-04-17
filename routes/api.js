@@ -1,6 +1,8 @@
 var mongoose = require('mongoose');
 var passport = require('passport');
 var config = require('../config/database');
+var validator = require("email-validator");
+ 
 require('../config/passport')(passport);
 var express = require('express');
 var jwt = require('jsonwebtoken');
@@ -13,17 +15,23 @@ router.post('/signup', function(req, res) {
   if (!req.body.username || !req.body.password) {
     res.json({success: false, msg: 'Please pass username and password.'});
   } else {
-    var newUser = new User({
-      username: req.body.username,
-      password: req.body.password
-    });
-    // save the user
-    newUser.save(function(err) {
-      if (err) {
-        return res.json({success: false, msg: 'Username already exists.'});
+    // check if email is valid email
+    var testEmail = validator.validate(req.body.username);
+    if(testEmail) {
+        var newUser = new User({
+          username: req.body.username,
+          password: req.body.password
+        });
+        // save the user
+        newUser.save(function(err) {
+            if (err) {
+                return res.json({success: false, msg: 'Username already exists.'});
+            }
+            res.json({success: true, msg: 'Successful created new user.'});
+        });
+      } else {
+          return res.json({success: false, msg: 'Username must be valid email address'});
       }
-      res.json({success: true, msg: 'Successful created new user.'});
-    });
   }
 });
 
