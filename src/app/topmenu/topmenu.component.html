@@ -1,8 +1,12 @@
 <div class="container">
   <div class="row row-authentication">
     <div class="col-12 col-authentication">
-      <div class="auth-item sign-in">Sign in</div>
-      <div class="auth-item register">Register</div>
+      <div class="auth-item sign-in">
+          <a [routerLink]="['/login']">Sign in</a>
+      </div>
+      <div class="auth-item register">
+          <a [routerLink]="['/signup']">Register</a>
+      </div>
     </div>
   </div>
   <div class="row row-navigation">

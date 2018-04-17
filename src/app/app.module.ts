@@ -9,6 +9,8 @@ import { LoginComponent } from './login/login.component';
 import { BookComponent } from './book/book.component';
 import { SignupComponent } from './signup/signup.component';
 import { TopmenuComponent } from './topmenu/topmenu.component';
+import { BlogComponent } from './blog/blog.component';
+import { HomeComponent } from './home/home.component';
 
 const appRoutes: Routes = [
   {
@@ -26,8 +28,13 @@ const appRoutes: Routes = [
     component: SignupComponent,
     data: { title: 'Sign Up' }
   },
+  {
+    path: 'home',
+    component: HomeComponent,
+    data: { title: 'Home Page' }
+  },
   { path: '',
-    redirectTo: '/books',
+    redirectTo: '/home',
     pathMatch: 'full'
   }
 ];
@@ -38,7 +45,9 @@ const appRoutes: Routes = [
     LoginComponent,
     BookComponent,
     SignupComponent,
-    TopmenuComponent
+    TopmenuComponent,
+    BlogComponent,
+    HomeComponent
   ],
   imports: [
     BrowserModule,
