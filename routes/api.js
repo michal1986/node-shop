@@ -13,7 +13,7 @@ var Book = require("../models/book");
 
 router.post('/signup', function(req, res) {
   if (!req.body.username || !req.body.password) {
-    res.json({success: false, msg: 'Please pass username and password.'});
+    res.json({success: false, msg: 'Please pass valid username and password.'});
   } else {
     // check if email is valid email
     var testEmail = validator.validate(req.body.username);
@@ -30,7 +30,7 @@ router.post('/signup', function(req, res) {
             res.json({success: true, msg: 'Successful created new user.'});
         });
       } else {
-          return res.json({success: false, msg: 'Username must be valid email address'});
+          return res.json({success: false, msg: 'Email must be valid email address'});
       }
   }
 });

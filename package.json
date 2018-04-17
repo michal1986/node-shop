@@ -1,15 +1,12 @@
 {
-  "name": "auth-example",
+  "name": "node-shop",
   "version": "0.0.0",
   "license": "MIT",
   "scripts": {
     "ng": "ng",
-    "start": "ng build && node ./bin/www",
-    "build": "ng build --prod",
-    "test": "ng test",
-    "lint": "ng lint",
-    "e2e": "ng e2e",
-    "dev": "nodemon"
+    "start": "concurrently \"npm run serve-api\" \"npm run serve\"",
+    "serve": "ng serve --port 3333 --proxy-config proxy.config.json",
+    "serve-api": "nodemon ./bin/www --watch *"
   },
   "private": true,
   "dependencies": {
@@ -26,6 +23,7 @@
     "bcrypt-nodejs": "0.0.3",
     "bluebird": "^3.5.1",
     "body-parser": "^1.18.2",
+    "concurrently": "^3.5.1",
     "connect-mongo": "^2.0.1",
     "core-js": "^2.4.1",
     "email-validator": "^2.0.3",
