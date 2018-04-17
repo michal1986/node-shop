@@ -13,34 +13,18 @@
       Featured Keeps</div>
   </div>
   <div class="row row-products">
-    <div class="col-3">
+    <div class="col-3" *ngFor="let product of products">
       <a href="product.html"><img src="assets/img/product.png" width="100%" /></a>
-      <div class="product-name">Name of the Product</div>
-      <div class="product-brand">Brand</div>
-      <div class="product-price">USD 0.00</div>
-    </div>
-    <div class="col-3">
-      <img src="assets/img/product.png" width="100%" />
-      <div class="product-name">Name of the Product</div>
-      <div class="product-brand">Brand</div>
-      <div class="product-price">USD 0.00</div>
-    </div>
-    <div class="col-3">
-      <img src="assets/img/product.png" width="100%" />
-      <div class="product-name">Name of the Product</div>
-      <div class="product-brand">Brand</div>
-      <div class="product-price">USD 0.00</div>
-    </div>
-    <div class="col-3">
-      <img src="assets/img/product.png" width="100%" />
-      <div class="product-name">Name of the Product</div>
+      <div class="product-name">{{product.name}}</div>
       <div class="product-brand">Brand</div>
       <div class="product-price">USD 0.00</div>
     </div>
   </div>
+
   <div class="row-title">
     <div class="col-12 col-title">
-      KITS</div>
+      KITS
+    </div>
   </div>
   <div class="row row-products">
     <div class="col-3">
@@ -68,5 +52,6 @@
       <div class="product-price">USD 0.00</div>
     </div>
   </div>
-
 </div>
+
+<app-footer></app-footer>

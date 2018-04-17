@@ -9,7 +9,36 @@ var jwt = require('jsonwebtoken');
 var router = express.Router();
 var User = require("../models/user");
 var Book = require("../models/book");
+var Airtable = require('airtable');
 
+var airtableBase = new Airtable({apiKey: 'key2rlTpmEcDJG0jE'}).base('appt5j605NfW5vDOF');
+
+
+router.get('/products', function(req, res) {
+  var productsArr = [];
+  airtableBase ('Products').select({
+    // Selecting the first 3 records in Grid view:
+    view: "Grid view"
+}).eachPage(function page(records, fetchNextPage) {
+    // This function (`page`) will get called for each page of records.
+
+    records.forEach(function(record) {
+      productsArr.push(record);
+    });
+
+    // To fetch the next page of records, call `fetchNextPage`.
+    // If there are more records, `page` will get called again.
+    // If there are no more records, `done` will get called.
+    fetchNextPage();
+
+}, function done(err) {
+    if (err) { 
+      console.error(err); return; 
+    }
+    res.json({success: true, products:productsArr});
+});
+   
+});
 
 router.post('/signup', function(req, res) {
   if (!req.body.username || !req.body.password) {
@@ -95,6 +124,22 @@ router.get('/book', passport.authenticate('jwt', { session: false}), function(re
   } else {
     return res.status(403).send({success: false, msg: 'Unauthorized.'});
   }
+});
+
+router.get('/cart', function(req, res, next) {
+  res.send(JSON.stringify(req.session));
+});
+
+
+router.get('/add-to-cart', function(req, res, next) {
+    if(req.session.cart) {
+      req.session.cart.totalNumberOfItems++;
+    } else {
+      req.session.cart = {
+        totalNumberOfItems:1,
+      }
+    }
+    res.send(JSON.stringify(req.session));
 });
 
 
