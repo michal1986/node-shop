@@ -9,7 +9,9 @@ var jwt = require('jsonwebtoken');
 var router = express.Router();
 var User = require("../models/user");
 var Book = require("../models/book");
+var Cart = require("../models/cart");
 var Airtable = require('airtable');
+
 
 var airtableBase = new Airtable({apiKey: 'key2rlTpmEcDJG0jE'}).base('appt5j605NfW5vDOF');
 
@@ -127,21 +129,31 @@ router.get('/book', passport.authenticate('jwt', { session: false}), function(re
 });
 
 router.get('/cart', function(req, res, next) {
+  var currentCart = new Cart(req.session.cart ? req.session.cart:{});
+  req.session.cart = currentCart;
   res.send(JSON.stringify(req.session));
 });
 
 
 router.get('/add-to-cart', function(req, res, next) {
-    if(req.session.cart) {
-      req.session.cart.totalNumberOfItems++;
-    } else {
-      req.session.cart = {
-        totalNumberOfItems:1,
-      }
-    }
+    var newCart = new Cart(req.session.cart ? req.session.cart:{});
+    var newItem = {
+        id:1,
+        name:"Breakfast on the Grass replica",
+        price:233.12,
+        quantity:1
+    };
+    newCart.add(newItem);
+    req.session.cart = newCart;
     res.send(JSON.stringify(req.session));
 });
 
+
+router.get('/empty-cart', function(req, res, next) {
+  var emptyCart = new Cart({});
+  req.session.cart = emptyCart;
+  res.send(JSON.stringify(req.session));
+});
 
 getToken = function (headers) {
   if (headers && headers.authorization) {
