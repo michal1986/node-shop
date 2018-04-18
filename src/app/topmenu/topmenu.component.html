@@ -1,18 +1,29 @@
 <div class="container">
   <div class="row row-authentication">
     <div class="col-12 col-authentication">
-      <div class="auth-item sign-in">
-          <a [routerLink]="['/login']">Sign in</a>
-      </div>
-      <div class="auth-item register">
-          <a [routerLink]="['/signup']">Register</a>
-      </div>
+      <div *ngIf="!userLogged">
+          <div class="auth-item sign-in">
+              <a [routerLink]="['/login']">Sign in</a>
+          </div>
+          <div class="auth-item register">
+              <a [routerLink]="['/signup']">Register</a>
+          </div>
+        </div>
+        <div *ngIf="userLogged">
+            <div class="auth-item sign-in">
+                <a (click)="logout()">Logout</a>
+            </div>
+            <div class="auth-item register">
+                <a [routerLink]="['/signup']">Hello, {{loggedUser.user.username}}</a>
+            </div>
+          </div>
     </div>
+
   </div>
   <div class="row row-navigation">
     <div class="col-4 col-logo"><img src="assets/img/logo.png" /></div>
     <div class="col-8 col-navigation">
-      <div class="nav-item cart"><span><img src="assets/img/cart.png"/></span>2</div>
+      <div class="nav-item cart"><span><img src="assets/img/cart.png"/></span>{{ cart.totalItemsQuantity }}</div>
       <div class="nav-item account">Account</div>
       <div class="nav-item blog">Blog</div>
       <div class="nav-item contact">Contact</div>

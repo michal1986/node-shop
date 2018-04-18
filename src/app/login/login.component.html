@@ -11,9 +11,9 @@
         <input type="email" class="form-control" placeholder="Email address" [(ngModel)]="loginData.username" name="username" required/>
         <label for="inputPassword" class="sr-only">Password</label>
         <input type="password" class="form-control" placeholder="Password" [(ngModel)]="loginData.password" name="password" required/>
-        <button class="btn btn-lg btn-primary btn-block" type="submit" [disabled]="!loginForm.form.valid">Sign in</button>
+        <button class="btn btn-lg btn-primary btn-block register-button" type="submit" [disabled]="!loginForm.form.valid">Sign in</button>
         <p>
-            Not a user? <a [routerLink]="['/signup']">Signup here</a>
+            Not a user? <a class="link" [routerLink]="['/signup']">Signup here</a>
         </p>
     </form>
 </div>

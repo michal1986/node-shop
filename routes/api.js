@@ -115,6 +115,20 @@ router.post('/book', passport.authenticate('jwt', { session: false}), function(r
   }
 });
 
+router.get('/user', passport.authenticate('jwt', { session: false}), function(req, res) {
+  var token = getToken(req.headers);
+  if (token) {
+      var decoded = jwt.verify(token, config.secret);
+      delete decoded.password;
+      var filteredData = {
+          username:decoded.username
+      }
+      res.json(filteredData);
+      
+  } else {
+    return res.status(403).send({success: false, msg: 'Unauthorized.'});
+  }
+});
 
 router.get('/book', passport.authenticate('jwt', { session: false}), function(req, res) {
   var token = getToken(req.headers);
@@ -131,7 +145,7 @@ router.get('/book', passport.authenticate('jwt', { session: false}), function(re
 router.get('/cart', function(req, res, next) {
   var currentCart = new Cart(req.session.cart ? req.session.cart:{});
   req.session.cart = currentCart;
-  res.send(JSON.stringify(req.session));
+  res.send(JSON.stringify(req.session.cart));
 });
 
 

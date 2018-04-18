@@ -9,6 +9,6 @@
         <input type="email" class="form-control" placeholder="Email address" [(ngModel)]="signupData.username" name="username" required/>
         <label for="inputPassword" class="sr-only">Password</label>
         <input type="password" class="form-control" placeholder="Password" [(ngModel)]="signupData.password" name="password" required/>
-        <button class="btn btn-lg btn-primary btn-block" type="submit" [disabled]="!signupForm.form.valid">Sign Up</button>
+        <button class="btn btn-lg btn-primary btn-block register-button" type="submit" [disabled]="!signupForm.form.valid">Sign Up</button>
     </form>
 </div>

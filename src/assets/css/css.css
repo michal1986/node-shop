@@ -445,3 +445,14 @@ font-family: 'bold', sans-serif;}
 
 .product-quantity-big select{margin-top: 10px;}
 .row-product{margin-top: 50px;}
+
+.link {
+  color:  #42B4B6 !important;
+}
+
+.register-button {
+  color: #ffffff !important;
+  cursor: pointer;
+  background-color:  #42B4B6 !important;
+  border:none;
+}

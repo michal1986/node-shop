@@ -13,6 +13,7 @@ import { of } from 'rxjs/observable/of';
 export class BookComponent implements OnInit {
 
     books:any;
+    cart:any;
 
     constructor(private http: HttpClient, private router: Router) { 
 
@@ -31,11 +32,12 @@ export class BookComponent implements OnInit {
                 this.router.navigate(['login']);
             }
         });
+
     }
 
 logout() {
   localStorage.removeItem('jwtToken');
-  this.router.navigate(['login']);
+  this.router.navigate(['home']);
 }
 
 }

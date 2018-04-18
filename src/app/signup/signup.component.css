@@ -40,3 +40,6 @@ body {
 .form-signin p {
   margin-top: 10px;
 }
+.btn-primary {
+ background-color:#42B4B6 !important;
+}
