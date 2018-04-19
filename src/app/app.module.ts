@@ -12,6 +12,14 @@ import { TopmenuComponent } from './topmenu/topmenu.component';
 import { BlogComponent } from './blog/blog.component';
 import { HomeComponent } from './home/home.component';
 import { FooterComponent } from './footer/footer.component';
+import { ContactComponent } from './contact/contact.component';
+import { AboutUsComponent } from './about-us/about-us.component';
+import { MyAccountComponent } from './my-account/my-account.component';
+import { MyOrdersComponent } from './my-orders/my-orders.component';
+import { ProductsComponent } from './products/products.component';
+import { ProductDetailsComponent } from './product-details/product-details.component';
+import { BlogPostComponent } from './blog-post/blog-post.component';
+import { MakersComponent } from './makers/makers.component';
 
 const appRoutes: Routes = [
   {
@@ -49,7 +57,15 @@ const appRoutes: Routes = [
     TopmenuComponent,
     BlogComponent,
     HomeComponent,
-    FooterComponent
+    FooterComponent,
+    ContactComponent,
+    AboutUsComponent,
+    MyAccountComponent,
+    MyOrdersComponent,
+    ProductsComponent,
+    ProductDetailsComponent,
+    BlogPostComponent,
+    MakersComponent
   ],
   imports: [
     BrowserModule,

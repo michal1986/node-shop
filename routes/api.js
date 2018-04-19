@@ -51,15 +51,27 @@ router.post('/signup', function(req, res) {
     if(testEmail) {
         var newUser = new User({
           username: req.body.username,
-          password: req.body.password
+          password: req.body.password,
+          firstName: req.body.firstName,
+          lastName: req.body.lastName,
+          telephone: req.body.telephone,
+          address: req.body.address,
+          zip: req.body.zip,
+          city: req.body.city,
+          country: req.body.country,
+
         });
-        // save the user
-        newUser.save(function(err) {
-            if (err) {
-                return res.json({success: false, msg: 'Username already exists.'});
-            }
-            res.json({success: true, msg: 'Successful created new user.'});
-        });
+        if(req.body.password == req.body.passwordConfirm) {
+            // save the user
+            newUser.save(function(err) {
+                if (err) {
+                    return res.json({success: false, msg: 'Username already exists.'});
+                }
+                res.json({success: true, msg: 'Successful created new user.'});
+            });
+        } else {
+            return res.json({success: false, msg: "Passwords don't match"});
+        }
       } else {
           return res.json({success: false, msg: 'Email must be valid email address'});
       }
