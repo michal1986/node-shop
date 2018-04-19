@@ -42,6 +42,26 @@ const appRoutes: Routes = [
     component: HomeComponent,
     data: { title: 'Home Page' }
   },
+  {
+    path: 'contact',
+    component: ContactComponent,
+    data: { title: 'Contact Us' }
+  },
+  {
+    path: 'makers',
+    component: HomeComponent,
+    data: { title: 'Makers' }
+  },
+  {
+    path: 'blog',
+    component: BlogComponent,
+    data: { title: 'Blog' }
+  },
+  {
+    path: 'blog/post/:id',
+    component: BlogPostComponent,
+    data: { title: 'Blog Id' }
+  },
   { path: '',
     redirectTo: '/home',
     pathMatch: 'full'

@@ -1,3 +1,30 @@
-<p>
-  blog works!
-</p>
+<app-topmenu></app-topmenu>
+
+
+<div class="container">
+   <div class="row-title-centered">
+      <div class="col-12 col-title">
+         BLOG
+      </div>
+   </div>
+   <div class="row row-post justify-content-center">
+
+      <div *ngFor="let blogPost of blogPosts" class="col-10 col-posts">
+         <div class="post-img"><img src="assets/img/blog.png" width="100%"/></div>
+         <div class="post-info">
+            <div class="post-title">{{blogPost.fields.Name}} </div>
+            <div class="post-date">{{blogPost.fields.Date}}</div>
+            <div class="post-detail">{{blogPost.fields.Content}}
+            </div>
+            <div class="post-link">
+               <a class="link" [routerLink]="['/blog/post/', blogPost.id]">Read more >  </a>
+            </div>
+         </div>
+      </div>
+     
+   </div>
+</div>
+
+
+<app-footer></app-footer>
+

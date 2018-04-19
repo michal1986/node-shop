@@ -13,6 +13,7 @@ import { of } from 'rxjs/observable/of';
 export class HomeComponent implements OnInit {
 
   products:any;
+  response:any;
 
   constructor(private http: HttpClient, private router: Router) { 
 
@@ -20,16 +21,12 @@ export class HomeComponent implements OnInit {
   }
 
   ngOnInit() {
+    
     this.http.get('/api/products').subscribe(data => {
-      this.products = [
-        {
-          name:'12223'
-        },
-        {
-          name:'12224'
-        }
-      ];
-      console.log(this.products);
+      this.response = data;
+      this.products = this.response.products;
+       
+      //console.log(this.products);
   }, err => {
       if(err.status === 401) {
           //this.router.navigate(['login']);
