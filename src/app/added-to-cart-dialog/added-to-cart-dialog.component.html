@@ -1,8 +1,7 @@
-<h1 mat-dialog-title>Add file</h1>
 <mat-dialog-content>
-  Content goes here
+ Product was added to cart !
 </mat-dialog-content>
 <mat-dialog-actions>
-  <button mat-button>Add</button>
-  <button mat-button>Cancel</button>
+  <button class="add-to-cart-button-modal" (click)="viewCart()" mat-button>View Cart</button>
+  <button class="add-to-cart-button-modal" (click)="closeDialog()" mat-button>Continue Shopping</button>
 </mat-dialog-actions>

@@ -12,7 +12,7 @@
           <a class="link" [routerLink]="['/blog/']">← go back</a>
      </div>
       <div class="col-10 col-posts">
-         <div class="post-img"><img src="assets/img/blog.png" width="100%"/></div>
+         <div class="post-img"><img src="{{singleBlogPost.fields.Picture[0].url}}" width="100%"/></div>
          <div class="post-info">
             <div class="post-title">{{singleBlogPost.fields.Name}} </div>
             <div class="post-date">{{singleBlogPost.fields.Date}} </div>

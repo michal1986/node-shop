@@ -60,6 +60,11 @@ const appRoutes: Routes = [
     data: { title: 'Makers' }
   },
   {
+    path: 'about-us',
+    component: AboutUsComponent,
+    data: { title: 'About us' }
+  },
+  {
     path: 'products',
     component: ProductsComponent,
     data: { title: 'Market' }

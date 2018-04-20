@@ -1,3 +1,47 @@
-<p>
-  cart works!
-</p>
+<app-topmenu></app-topmenu>
+
+
+
+<div class="container">
+
+  <div class="row-title">
+    <div class="col-12 col-title">
+      Your cart</div>
+  </div>
+
+    <div class="row row-products">
+
+    	<div *ngFor="let productInCart of cart.items" class="col-12 margin-top-10">
+           <div class="row">
+    		<div class="col-4">
+    			<img style="width:170px; padding:2px; border:1px solid #EDEDED;" src="{{productInCart.imageUrl}}" />
+    		</div>
+    		<div class="col-4 padding-top-42">
+    			{{productInCart.name}} : {{productInCart.quantity}} x ${{productInCart.price}}
+    		</div>
+            </div>
+        
+    	</div>
+
+
+    </div>
+
+     <div class="row">
+     	<div class="col-12 text-align-right">
+            <hr/>
+            <b>Total:</b> ${{cart.totalPrice}}
+        </div>
+    </div>
+
+     <div class="row">
+     	<div class="col-12 text-align-right margin-top-10">
+            <a [routerLink]="['/order-delivery']" class="btn btn-primary add-to-cart-button">Proceed</a>
+        </div>
+    </div>
+
+</div>
+
+
+<app-footer></app-footer>
+
+

@@ -1,5 +1,6 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import {MatDialogRef, MatDialogContent, MatFormField} from '@angular/material';
+import { Router } from "@angular/router";
 
 @Component({
   selector: 'app-added-to-cart-dialog',
@@ -8,7 +9,7 @@ import {MatDialogRef, MatDialogContent, MatFormField} from '@angular/material';
 })
 export class AddedToCartDialogComponent {
 
-  constructor(public dialogRef: MatDialogRef<AddedToCartDialogComponent>) {
+  constructor(public dialogRef: MatDialogRef<AddedToCartDialogComponent>, private router: Router) {
 
   }
 
@@ -17,4 +18,11 @@ export class AddedToCartDialogComponent {
     this.dialogRef.close();
   }
 
+ closeDialog() {
+    this.dialogRef.close();
+  }
+
+ viewCart() {
+     this.router.navigate(['cart']);;
+  }
 }

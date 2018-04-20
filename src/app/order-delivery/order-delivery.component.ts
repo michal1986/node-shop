@@ -11,11 +11,12 @@ import { of } from 'rxjs/observable/of';
   styleUrls: ['./order-delivery.component.css']
 })
 export class OrderDeliveryComponent implements OnInit {
-
+  
+  signupData = { username:'', password:'' };
   userLogged:boolean;
   loggedUser:any;
   response:any;
-  cart:any;
+  message:any;
 
   constructor(private http: HttpClient, private router: Router) {
 
@@ -24,10 +25,10 @@ export class OrderDeliveryComponent implements OnInit {
    }
 
   ngOnInit() {
-    console.log("HERE 1");
     let httpOptions = {
       headers: new HttpHeaders({ 'Authorization': localStorage.getItem('jwtToken') })
     };
+    this.message = "";
   this.http.get('/api/user', httpOptions).subscribe(data => {
       this.response = data;
       this.userLogged = true;
@@ -37,11 +38,8 @@ export class OrderDeliveryComponent implements OnInit {
               username:this.response.username
           }
       }
-      console.log("HERE");
-      console.log(data);
   }, err => {
       if(err.status === 401) {
-        console.log("HERE2");
         this.userLogged = false;
         this.loggedUser = {
           logged:false,

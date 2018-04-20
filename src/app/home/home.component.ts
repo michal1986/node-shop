@@ -48,8 +48,8 @@ addToCart(idProduct) {
         this.response = data;
         console.log(this.response);
         this.dialogRef.open(AddedToCartDialogComponent, {
-            height: '100px',
-            width: '200px',
+            height: '146px',
+            width: '400px',
           });
     });
     

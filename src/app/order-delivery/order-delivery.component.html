@@ -1,38 +1,30 @@
 <app-topmenu></app-topmenu>
 
 <div class="container">
-  <form class="form-signin" (ngSubmit)="signup()" #signupForm="ngForm">
+  <form class="form-signin" (ngSubmit)="confirmDelivery()" #confirmDeliveryForm="ngForm">
       <div class="alert alert-warning alert-dismissible" role="alert" *ngIf="message !== ''">
         <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
         {{message}}
       </div>
-      <h2 class="form-signin-heading">Sign Up Right Now</h2>
-
-      <label for="inputEmail" class="sr-only">Email address</label>
-      <input type="email" class="form-control" placeholder="Email address" [(ngModel)]="signupData.username" name="username" required/>
-      <label for="inputPassword" class="sr-only">Password</label>
-      <input type="password" class="form-control" placeholder="Password" [(ngModel)]="signupData.password" name="password" required/>
-
-      <label for="inputPassword" class="sr-only">Password Confirm</label>
-      <input type="password" class="form-control" placeholder="Password confirm" [(ngModel)]="signupData.passwordConfirm" name="passwordConfirm" required/>
+      <h2 class="form-signin-heading">Delivery Address</h2>
 
       <label for="inputFirstName" class="sr-only">First Name</label>
-      <input type="text" class="form-control" placeholder="First Name" [(ngModel)]="signupData.firstName" name="firstName" required/>
-      <label for="inputLastName" class="sr-only">Password</label>
-      <input type="text" class="form-control" placeholder="Last Name" [(ngModel)]="signupData.lastName" name="lastName" required/>
+      <input type="text" class="form-control" placeholder="First Name" [(ngModel)]="confirmDeliveryForm.firstName" name="firstName" required/>
+      <label for="inputLastName" class="sr-only">Last Name</label>
+      <input type="text" class="form-control" placeholder="Last Name" [(ngModel)]="confirmDeliveryForm.lastName" name="lastName" required/>
       <label for="inputTelephone" class="sr-only"></label>
-      <input type="text" class="form-control" placeholder="Telephone" [(ngModel)]="signupData.telephone" name="telephone" required/>
+      <input type="text" class="form-control" placeholder="Telephone" [(ngModel)]="confirmDeliveryForm.telephone" name="telephone" required/>
       <label for="inputAddress" class="sr-only">Address</label>
-      <input type="text" class="form-control" placeholder="Address" [(ngModel)]="signupData.address" name="address" required/>
+      <input type="text" class="form-control" placeholder="Address" [(ngModel)]="confirmDeliveryForm.address" name="address" required/>
       <label for="inputZip" class="sr-only"></label>
-      <input type="text" class="form-control" placeholder="Zip" [(ngModel)]="signupData.zip" name="zip" required/>
+      <input type="text" class="form-control" placeholder="Zip" [(ngModel)]="confirmDeliveryForm.zip" name="zip" required/>
       <label for="inputCity" class="sr-only"></label>
-      <input type="text" class="form-control" placeholder="City" [(ngModel)]="signupData.city" name="city" required/>
+      <input type="text" class="form-control" placeholder="City" [(ngModel)]="confirmDeliveryForm.city" name="city" required/>
       <label for="inputCountry" class="sr-only"></label>
-      <input type="text" class="form-control" placeholder="Country" [(ngModel)]="signupData.country" name="country" required/>
+      <input type="text" class="form-control" placeholder="Country" [(ngModel)]="confirmDeliveryForm.country" name="country" required/>
+      
 
-
-      <button class="btn btn-lg btn-primary btn-block register-button" type="submit" [disabled]="!signupForm.form.valid">Sign Up</button>
+      <button class="btn btn-lg btn-primary btn-block register-button margin-top-10" type="submit" [disabled]="!confirmDeliveryForm.form.valid">Confirm Order</button>
   </form>
 </div>
 

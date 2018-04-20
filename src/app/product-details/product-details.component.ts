@@ -29,6 +29,8 @@ export class ProductDetailsComponent implements OnInit {
           this.http.get('/api/blog-post-details/'+this.singleProductId).subscribe(data => {
               this.response = data;
               this.singleProduct = this.response;
+              console.log("HERE");
+              console.log(this.singleProduct );
           });
       });
 
