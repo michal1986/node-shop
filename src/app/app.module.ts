@@ -56,7 +56,7 @@ const appRoutes: Routes = [
   },
   {
     path: 'makers',
-    component: HomeComponent,
+    component: MakersComponent,
     data: { title: 'Makers' }
   },
   {

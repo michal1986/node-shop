@@ -23,6 +23,7 @@ export class AddedToCartDialogComponent {
   }
 
  viewCart() {
+     this.dialogRef.close();
      this.router.navigate(['cart']);;
   }
 }
