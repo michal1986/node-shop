@@ -1,3 +1,45 @@
-<p>
-  my-account works!
-</p>
+
+
+<app-topmenu></app-topmenu>
+
+
+<div class="container">
+   <div class="row row-products">
+      <div class="col-1"></div>
+      <div class="col-4">
+         <div class="account-menu-title">My Account</div>
+         <div class="account-menu-option">Customer Information</div>
+         <div class="account-menu-option">Payment Methods</div>
+         <div class="account-menu-option">Address Book</div>
+         <div class="account-menu-title">Orders</div>
+         <div class="account-menu-option">Order History</div>
+         <div class="account-menu-option">Open Orders</div>
+         <div class="account-menu-option">Cancelled Orders</div>
+         <div class="account-menu-title">Wishlist</div>
+         <div class="account-menu-option">Name List 1</div>
+         <div class="account-menu-option">Name List 2</div>
+      </div>
+      <div class="col-6">
+         <div class="account-right-title">Customer Information</div>
+
+
+         <div class="account-right-subtitle margin-top-15">Name:</div>
+         <div class="account-right-text">{{loggedUser.firstName}} {{loggedUser.lastName}}</div>
+         <div class="account-right-subtitle margin-top-15">Email:</div>
+         <div class="account-right-text">{{loggedUser.username}}</div>
+         <div class="account-right-subtitle margin-top-15">Address:</div>
+         <div class="account-right-text">
+             {{loggedUser.address}} <br/> 
+             {{loggedUser.zip}} 
+             {{loggedUser.city}} <br/> 
+             {{loggedUser.country}} <br/>
+         </div>
+         <div class="account-right-subtitle margin-top-15">Telephone:</div>
+         <div class="account-right-text">{{loggedUser.telephone}}</div>
+      </div>
+   </div>
+</div>
+
+
+<app-footer></app-footer>
+

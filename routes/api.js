@@ -39,6 +39,37 @@ router.get('/products', function(req, res) {
    
 });
 
+
+
+
+
+router.get('/makers', function(req, res) {
+  var makersArr = [];
+  airtableBase('Makers').select({
+    // Selecting the first 3 records in Grid view:
+    maxRecords: 3,
+    view: "Grid view"
+}).eachPage(function page(records, fetchNextPage) {
+    // This function (`page`) will get called for each page of records.
+
+    records.forEach(function(record) {
+        makersArr.push(record);
+    });
+
+    // To fetch the next page of records, call `fetchNextPage`.
+    // If there are more records, `page` will get called again.
+    // If there are no more records, `done` will get called.
+    fetchNextPage();
+
+}, function done(err) {
+    if (err) { 
+      console.error(err); return; 
+    }
+    res.json({success: true, makers:makersArr});
+});
+   
+});
+
 router.get('/product-details/:id', function(req, res) {
   var product = {};
   var productId = req.params.id;
@@ -75,6 +106,48 @@ router.get('/blog-posts', function(req, res) {
    
 });
 
+
+router.post('/confirm-order', function(req, res) {
+    
+    var today = new Date();
+    var dd = today.getDate();
+    var mm = today.getMonth()+1; //January is 0!
+
+    var yyyy = today.getFullYear();
+    if(dd<10){
+        dd='0'+dd;
+    } 
+    if(mm<10){
+        mm='0'+mm;
+    }     
+    var today = yyyy+"-"+mm+"-"+dd;
+
+    airtableBase('Orders').create({
+        "Notes (Internal)": "",
+        "Status": "Ordered",
+        "Client": [
+        ],
+        "Products": [
+           
+        ],
+            "Order received": today,
+            "Items" : JSON.stringify(req.session.cart.items),
+            "FirstName" :req.body.firstName,
+            "LastName" :req.body.lastName,
+            "Address" : req.body.address,
+            "Zip" : req.body.zip,
+            "City" : req.body.city,
+            "Country" : req.body.country,
+            "TotalPrice":parseFloat(req.session.cart.totalPrice)
+    }, function(err, record) {
+        if (err) { 
+          console.error(err); 
+          return; 
+        }
+       res.json(record);
+    });
+
+});
 
 router.get('/blog-post-details/:id', function(req, res) {
   var blogPost = {};
@@ -179,10 +252,12 @@ router.get('/user', passport.authenticate('jwt', { session: false}), function(re
   if (token) {
       var decoded = jwt.verify(token, config.secret);
       delete decoded.password;
+      delete decoded._id;
       var filteredData = {
           username:decoded.username
       }
-      res.json(filteredData);
+      //res.json(filteredData);
+      res.json(decoded);
       
   } else {
     return res.status(403).send({success: false, msg: 'Unauthorized.'});

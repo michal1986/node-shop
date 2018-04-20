@@ -1,7 +1,7 @@
 <app-topmenu></app-topmenu>
 
 <div class="container">
-  <form class="form-signin" (ngSubmit)="confirmDelivery()" #confirmDeliveryForm="ngForm">
+  <form class="form-signin" (ngSubmit)="confirm()" #confirmDeliveryForm="ngForm">
       <div class="alert alert-warning alert-dismissible" role="alert" *ngIf="message !== ''">
         <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
         {{message}}
@@ -9,19 +9,19 @@
       <h2 class="form-signin-heading">Delivery Address</h2>
 
       <label for="inputFirstName" class="sr-only">First Name</label>
-      <input type="text" class="form-control" placeholder="First Name" [(ngModel)]="confirmDeliveryForm.firstName" name="firstName" required/>
+      <input type="text" class="form-control" placeholder="First Name" [(ngModel)]="confirmDelivery.firstName" name="firstName" required/>
       <label for="inputLastName" class="sr-only">Last Name</label>
-      <input type="text" class="form-control" placeholder="Last Name" [(ngModel)]="confirmDeliveryForm.lastName" name="lastName" required/>
+      <input type="text" class="form-control" placeholder="Last Name" [(ngModel)]="confirmDelivery.lastName" name="lastName" required/>
       <label for="inputTelephone" class="sr-only"></label>
-      <input type="text" class="form-control" placeholder="Telephone" [(ngModel)]="confirmDeliveryForm.telephone" name="telephone" required/>
+      <input type="text" class="form-control" placeholder="Telephone" [(ngModel)]="confirmDelivery.telephone" name="telephone" required/>
       <label for="inputAddress" class="sr-only">Address</label>
-      <input type="text" class="form-control" placeholder="Address" [(ngModel)]="confirmDeliveryForm.address" name="address" required/>
+      <input type="text" class="form-control" placeholder="Address" [(ngModel)]="confirmDelivery.address" name="address" required/>
       <label for="inputZip" class="sr-only"></label>
-      <input type="text" class="form-control" placeholder="Zip" [(ngModel)]="confirmDeliveryForm.zip" name="zip" required/>
+      <input type="text" class="form-control" placeholder="Zip" [(ngModel)]="confirmDelivery.zip" name="zip" required/>
       <label for="inputCity" class="sr-only"></label>
-      <input type="text" class="form-control" placeholder="City" [(ngModel)]="confirmDeliveryForm.city" name="city" required/>
+      <input type="text" class="form-control" placeholder="City" [(ngModel)]="confirmDelivery.city" name="city" required/>
       <label for="inputCountry" class="sr-only"></label>
-      <input type="text" class="form-control" placeholder="Country" [(ngModel)]="confirmDeliveryForm.country" name="country" required/>
+      <input type="text" class="form-control" placeholder="Country" [(ngModel)]="confirmDelivery.country" name="country" required/>
       
 
       <button class="btn btn-lg btn-primary btn-block register-button margin-top-10" type="submit" [disabled]="!confirmDeliveryForm.form.valid">Confirm Order</button>

@@ -27,6 +27,8 @@ import { CartComponent } from './cart/cart.component';
 import { AddedToCartDialogComponent } from './added-to-cart-dialog/added-to-cart-dialog.component';
 import { MatDialogModule} from '@angular/material';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { OrderConfirmedDialogComponent } from './order-confirmed-dialog/order-confirmed-dialog.component';
+import { MessageSentDialogComponent } from './message-sent-dialog/message-sent-dialog.component';
 
 const appRoutes: Routes = [
   {
@@ -75,6 +77,11 @@ const appRoutes: Routes = [
     data: { title: 'Cart' }
   },
   {
+    path: 'my-account',
+    component: MyAccountComponent,
+    data: { title: 'My account' }
+  },
+  {
     path: 'order-delivery',
     component: OrderDeliveryComponent,
     data: { title: 'Order delivery' }
@@ -105,7 +112,7 @@ const appRoutes: Routes = [
     data: { title: 'Blog Id' }
   },
   { path: '',
-    redirectTo: '/home',
+    redirectTo: '/products',
     pathMatch: 'full'
   }
 ];
@@ -132,7 +139,9 @@ const appRoutes: Routes = [
     OrderPaymentMethodComponent,
     OrderConfirmComponent,
     CartComponent,
-    AddedToCartDialogComponent
+    AddedToCartDialogComponent,
+    OrderConfirmedDialogComponent,
+    MessageSentDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -146,7 +155,8 @@ const appRoutes: Routes = [
     )
   ],
   entryComponents: [
-    AddedToCartDialogComponent
+    AddedToCartDialogComponent,
+    OrderConfirmedDialogComponent
   ],
   providers: [],
   bootstrap: [AppComponent]

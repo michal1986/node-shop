@@ -26,7 +26,7 @@
     </div>
     <div class="col-8 col-navigation">
       <div class="nav-item cart"><span><a [routerLink]="['/cart']"><img src="assets/img/cart.png"/></a></span>{{ cart.totalItemsQuantity }}</div>
-      <div class="nav-item account"><a class="topmenu-link" [routerLink]="['/my-account']">Account</a></div>
+      <div *ngIf="userLogged" class="nav-item account"><a class="topmenu-link" [routerLink]="['/my-account']">Account</a></div>
       <div class="nav-item blog"><a class="topmenu-link" [routerLink]="['/blog']">Blog</a></div>
       <div class="nav-item contact"><a class="topmenu-link" [routerLink]="['/contact']">Contact</a></div>
       <div class="nav-item makers"><a class="topmenu-link" [routerLink]="['/makers']">Makers</a></div>

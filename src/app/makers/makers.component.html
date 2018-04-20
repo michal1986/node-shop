@@ -10,67 +10,36 @@
 <div class="row-title-centered">
 	<div class="col-12 col-title">
 		THEIR STORIES<br /><br />
-		<select>
+		<!--<select>
   <option value="1">Filter by</option>
 
-</select>
+</select>-->
 	</div>
 </div>
+
+<div *ngFor="let maker of makers">
+
 <div class="row row-separator"></div>
 
 <div class="row justify-content-center">
-<div class="col-5"><img src="assets/img/product.png" width="100%"/></div>
-<div class="col-5 col-quote"><span class="comillas">"</span>Nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper.<span class="comillas">"</span>
+
+<div class="col-5"><img src="{{maker.fields.Picture[0].url}}" width="100%"/></div>
+<div class="col-5 col-quote"><span class="comillas">"</span>{{maker.fields.Story}}<span class="comillas">"</span>
 	<br />
-	Name from <span class="brand-name">Brand Name</span>
+	{{maker.fields.Name}} from <span class="brand-name">{{maker.fields.Brand}}</span>
 </div>
 </div>
 
 <div class="row row-more-products">
 	<div class="col-1"></div>
-	<div class="col-2"><img src="assets/img/product.png" width="100%"/></div>
-	<div class="col-2"><img src="assets/img/product.png" width="100%"/></div>
-	<div class="col-2"><img src="assets/img/product.png" width="100%"/></div>
-	<div class="col-3"><div class="more-from">More from "Brand Name"</div></div>
+	<div class="col-2"><img src="{{maker.fields.Picture[0].url}}" width="100%"/></div>
+	<div class="col-2"><img src="{{maker.fields.Picture[0].url}}" width="100%"/></div>
+	<div class="col-2"><img src="{{maker.fields.Picture[0].url}}" width="100%"/></div>
+	<div class="col-3"><div class="more-from">More from "{{maker.fields.Brand}}"</div></div>
 </div>
 
-<div class="row row-separator"></div>
 
-<div class="row justify-content-center">
-<div class="col-5"><img src="assets/img/product.png" width="100%"/></div>
-<div class="col-5 col-quote"><span class="comillas">"</span>Nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper.<span class="comillas">"</span>
-	<br />
-	Name from <span class="brand-name">Brand Name</span>
 </div>
-</div>
-
-<div class="row row-more-products">
-	<div class="col-1"></div>
-	<div class="col-2"><img src="assets/img/product.png" width="100%"/></div>
-	<div class="col-2"><img src="assets/img/product.png" width="100%"/></div>
-	<div class="col-2"><img src="assets/img/product.png" width="100%"/></div>
-	<div class="col-3"><div class="more-from">More from "Brand Name"</div></div>
-</div>
-
-<div class="row row-separator"></div>
-
-<div class="row justify-content-center">
-<div class="col-5"><img src="assets/img/product.png" width="100%"/></div>
-<div class="col-5 col-quote"><span class="comillas">"</span>Nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper.<span class="comillas">"</span>
-	<br />
-	Name from <span class="brand-name">Brand Name</span>
-</div>
-</div>
-
-<div class="row row-more-products">
-	<div class="col-1"></div>
-	<div class="col-2"><img src="assets/img/product.png" width="100%"/></div>
-	<div class="col-2"><img src="assets/img/product.png" width="100%"/></div>
-	<div class="col-2"><img src="assets/img/product.png" width="100%"/></div>
-	<div class="col-3"><div class="more-from">More from "Brand Name"</div></div>
-</div>
-
-<div class="row row-separator"></div>
 
 </div>
 

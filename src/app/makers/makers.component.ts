@@ -12,11 +12,25 @@ import { of } from 'rxjs/observable/of';
 })
 export class MakersComponent implements OnInit {
 
+  makers:any;
+  response:any;
+   
   constructor(private http: HttpClient, private router: Router) {
-
+  
    }
 
   ngOnInit() {
+    this.http.get('/api/makers').subscribe(data => {
+        this.response = data;
+        this.makers = this.response.makers
+
+       
+      console.log(this.makers);
+  }, err => {
+      if(err.status === 401) {
+          //this.router.navigate(['login']);
+      }
+  });
   }
 
 }
