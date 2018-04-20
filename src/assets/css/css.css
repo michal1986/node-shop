@@ -450,9 +450,20 @@ font-family: 'bold', sans-serif;}
   color:  #42B4B6 !important;
 }
 
-.register-button {
+.register-button, .add-to-cart-button {
   color: #ffffff !important;
   cursor: pointer;
   background-color:  #42B4B6 !important;
   border:none;
+}
+
+.add-to-cart-button-small {
+  color: #ffffff !important;
+  cursor: pointer;
+  background-color: #42B4B6 !important;
+  border: none;
+  height: 28px;
+  width: 136px;
+  font-size: 0.8em;
+  margin: 4px 0 0 0;
 }

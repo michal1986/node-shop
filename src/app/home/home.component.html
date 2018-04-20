@@ -14,14 +14,19 @@
   </div>
   <div class="row row-products">
     <div class="col-3" *ngFor="let product of products">
-      <a href="product.html"><img src="assets/img/product.png" width="100%" /></a>
-      <div class="product-name">{{product.name}}</div>
-      <div class="product-brand">Brand</div>
-      <div class="product-price">USD 0.00</div>
+      <a [routerLink]="['/product/', product.id]" 
+          ><img src="{{product.fields.Pictures[0].url}}" width="100%" />
+      </a>
+      <div class="product-name">{{product.fields.Name}}</div>
+      <div class="product-brand">{{product.fields.Category}}</div>
+      <div class="product-price">${{product.fields.Price}}</div>
+      <a (click)="addToCart(product.id, product.fields.Price)" class="btn btn-primary add-to-cart-button-small">Add to cart</a>
+      <br/>
+      <!--<a href="#!" class="btn btn-primary closeit add-to-cart-button-small">Add to wishlist</a>-->
     </div>
   </div>
 
-  <div class="row-title">
+  <!--div class="row-title">
     <div class="col-12 col-title">
       KITS
     </div>
@@ -52,6 +57,6 @@
       <div class="product-price">USD 0.00</div>
     </div>
   </div>
-</div>
+</div>-->
 
 <app-footer></app-footer>

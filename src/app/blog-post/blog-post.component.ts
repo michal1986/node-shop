@@ -14,19 +14,24 @@ import { of } from 'rxjs/observable/of';
 export class BlogPostComponent implements OnInit {
 
   singleBlogPost:any;
-  singleBlogPostId:number;
+  singleBlogPostId:string;
+  response:any;
 
   constructor(private http: HttpClient, private router: Router, private route: ActivatedRoute) { 
 
   }
-  //this.route.params.subscribe(params => { this.user = params['user']; });
+
   //this.router.navigate(['./yourlocation', { user: this.user }]);
   ngOnInit() {
 
   	this.route.params.subscribe(params => {
-  		console.log('PARAMS');
-  		console.log(params);
-        this.singleBlogPostId = params['id'];
+  		
+        this.singleBlogPostId = params.id;
+        this.http.get('/api/blog-post-details/'+this.singleBlogPostId).subscribe(data => {
+            this.response = data;
+            this.singleBlogPost = this.response;
+        });
+        
     });
 
 

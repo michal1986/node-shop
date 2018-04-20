@@ -1,3 +1,5 @@
+<app-topmenu></app-topmenu>
+
 <div class="container">
     <form class="form-signin" (ngSubmit)="signup()" #signupForm="ngForm">
         <div class="alert alert-warning alert-dismissible" role="alert" *ngIf="message !== ''">
@@ -33,3 +35,6 @@
         <button class="btn btn-lg btn-primary btn-block register-button" type="submit" [disabled]="!signupForm.form.valid">Sign Up</button>
     </form>
 </div>
+
+
+<app-footer></app-footer>

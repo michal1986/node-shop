@@ -20,6 +20,13 @@ import { ProductsComponent } from './products/products.component';
 import { ProductDetailsComponent } from './product-details/product-details.component';
 import { BlogPostComponent } from './blog-post/blog-post.component';
 import { MakersComponent } from './makers/makers.component';
+import { OrderDeliveryComponent } from './order-delivery/order-delivery.component';
+import { OrderPaymentMethodComponent } from './order-payment-method/order-payment-method.component';
+import { OrderConfirmComponent } from './order-confirm/order-confirm.component';
+import { CartComponent } from './cart/cart.component';
+import { AddedToCartDialogComponent } from './added-to-cart-dialog/added-to-cart-dialog.component';
+import { MatDialogModule} from '@angular/material';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 const appRoutes: Routes = [
   {
@@ -51,6 +58,36 @@ const appRoutes: Routes = [
     path: 'makers',
     component: HomeComponent,
     data: { title: 'Makers' }
+  },
+  {
+    path: 'products',
+    component: ProductsComponent,
+    data: { title: 'Market' }
+  },
+  {
+    path: 'cart',
+    component: CartComponent,
+    data: { title: 'Cart' }
+  },
+  {
+    path: 'order-delivery',
+    component: OrderDeliveryComponent,
+    data: { title: 'Order delivery' }
+  },
+  {
+    path: 'order-confirm',
+    component: OrderConfirmComponent,
+    data: { title: 'Order Confirm' }
+  },
+  {
+    path: 'order-payment-method',
+    component: OrderPaymentMethodComponent,
+    data: { title: 'Order payment method' }
+  },
+  {
+    path: 'product/:id',
+    component: ProductDetailsComponent,
+    data: { title: 'Product' }
   },
   {
     path: 'blog',
@@ -85,16 +122,26 @@ const appRoutes: Routes = [
     ProductsComponent,
     ProductDetailsComponent,
     BlogPostComponent,
-    MakersComponent
+    MakersComponent,
+    OrderDeliveryComponent,
+    OrderPaymentMethodComponent,
+    OrderConfirmComponent,
+    CartComponent,
+    AddedToCartDialogComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
     HttpClientModule,
+    BrowserAnimationsModule,
+    MatDialogModule,
     RouterModule.forRoot(
         appRoutes,
         { enableTracing: true } // <-- debugging purposes only
     )
+  ],
+  entryComponents: [
+    AddedToCartDialogComponent
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -8,13 +8,15 @@
       </div>
    </div>
    <div class="row row-post justify-content-center">
-
+     <div class="col-10 col-posts">
+          <a class="link" [routerLink]="['/blog/']">← go back</a>
+     </div>
       <div class="col-10 col-posts">
          <div class="post-img"><img src="assets/img/blog.png" width="100%"/></div>
          <div class="post-info">
-            <div class="post-title">fsdjiojgfg </div>
-            <div class="post-date">gdfgfddg</div>
-            <div class="post-detail">gfdgdfgf
+            <div class="post-title">{{singleBlogPost.fields.Name}} </div>
+            <div class="post-date">{{singleBlogPost.fields.Date}} </div>
+            <div class="post-detail">{{singleBlogPost.fields.Content}} 
             </div>
 
          </div>

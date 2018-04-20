@@ -29,7 +29,7 @@ module.exports = function Cart(currentCart) {
                 this.items.push(item);
             }
             var cartTotalAmounts = this.calculateToalPriceAndQuantity();
-            this.totalPrice = cartTotalAmounts.totalSum;
+            this.totalPrice = parseFloat(cartTotalAmounts.totalSum).toFixed(2);
             this.totalItemsQuantity = cartTotalAmounts.totalQuantity;
         }
         

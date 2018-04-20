@@ -39,6 +39,19 @@ router.get('/products', function(req, res) {
    
 });
 
+router.get('/product-details/:id', function(req, res) {
+  var product = {};
+  var productId = req.params.id;
+  airtableBase ('Products').find(productId, function(err, record){
+    if(err) {
+      console.error(err);
+      return;
+    } else {
+      res.json(record);
+    }
+  });
+});
+
 router.get('/blog-posts', function(req, res) {
   var blogPostsArr = [];
   airtableBase ('Blog Posts').select({
@@ -60,6 +73,20 @@ router.get('/blog-posts', function(req, res) {
     res.json({success: true, blogPosts:blogPostsArr});
 });
    
+});
+
+
+router.get('/blog-post-details/:id', function(req, res) {
+  var blogPost = {};
+  var blogPostId = req.params.id;
+  airtableBase ('Blog Posts').find(blogPostId, function(err, record){
+    if(err) {
+      console.error(err);
+      return;
+    } else {
+      res.json(record);
+    }
+  });
 });
 
 router.post('/signup', function(req, res) {
@@ -181,17 +208,32 @@ router.get('/cart', function(req, res, next) {
 });
 
 
-router.get('/add-to-cart', function(req, res, next) {
-    var newCart = new Cart(req.session.cart ? req.session.cart:{});
-    var newItem = {
-        id:1,
-        name:"Breakfast on the Grass replica",
-        price:233.12,
-        quantity:1
-    };
-    newCart.add(newItem);
-    req.session.cart = newCart;
-    res.send(JSON.stringify(req.session));
+router.get('/add-to-cart/:id', function(req, res, next) {
+  var productId = req.params.id;
+  airtableBase ('Products').find(productId, function(err, record){
+    if(err) {
+      console.error(err);
+      return;
+    } else {
+        var newCart = new Cart(req.session.cart ? req.session.cart:{});
+        var formattedPrice = parseFloat(record.fields.Price).toFixed(2);
+        var imageUrl = "";
+        if(typeof record.fields.Pictures[0] !== 'undefined') {
+          imageUrl = record.fields.Pictures[0].url;
+        }
+        var newItem = {
+            id:record.id,
+            name:record.fields.Name,
+            price:formattedPrice,
+            quantity:1,
+            imageUrl:imageUrl
+        };
+        newCart.add(newItem);
+        req.session.cart = newCart;
+        //res.send(JSON.stringify(req.session));
+        res.json(newCart);
+      }
+    });
 });
 
 
