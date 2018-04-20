@@ -23,6 +23,8 @@ export class ProductsComponent implements OnInit {
   }
 
   ngOnInit() {
+
+    this.products = [];
     
     this.http.get('/api/products').subscribe(data => {
       this.response = data;

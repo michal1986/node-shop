@@ -13,15 +13,18 @@ import { of } from 'rxjs/observable/of';
 })
 export class TopmenuComponent implements OnInit {
 
-  constructor(private http: HttpClient, private router: Router) { 
-
-  }
   userLogged:boolean;
   loggedUser:any;
   response:any;
   cart:any;
 
+  constructor(private http: HttpClient, private router: Router) { 
+
+  }
+
+
   ngOnInit() {
+    this.cart = {};
     let httpOptions = {
       headers: new HttpHeaders({ 'Authorization': localStorage.getItem('jwtToken') })
     };
