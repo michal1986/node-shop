@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Router } from "@angular/router";
 import { Observable } from 'rxjs/Observable';
@@ -6,6 +6,7 @@ import { tap, catchError } from 'rxjs/operators';
 import { of } from 'rxjs/observable/of';
 import { OrderConfirmedDialogComponent } from '../order-confirmed-dialog/order-confirmed-dialog.component';
 import {MatDialog, MatDialogConfig} from "@angular/material";
+import {NgForm, Form} from '@angular/forms';
 
 @Component({
   selector: 'app-order-delivery',
@@ -14,6 +15,7 @@ import {MatDialog, MatDialogConfig} from "@angular/material";
 })
 export class OrderDeliveryComponent implements OnInit {
   
+  @ViewChild("paymentFormRef") paymentFormRef;
   confirmDeliveryForm :any;
   confirmDelivery = {
     firstName: '',
@@ -24,10 +26,17 @@ export class OrderDeliveryComponent implements OnInit {
     city: '',
     country: ''
   };
+  paymentData = {
+      hash:'',
+      time:''
+  };
   userLogged:boolean;
   loggedUser:any;
   response:any;
   message:any;
+paymentForm:any;
+
+ 
 
   constructor(private http: HttpClient, private router: Router, public dialogRef: MatDialog) {
 
@@ -39,6 +48,13 @@ export class OrderDeliveryComponent implements OnInit {
     let httpOptions = {
       headers: new HttpHeaders({ 'Authorization': localStorage.getItem('jwtToken') })
     };
+    this.http.get('/api/get-hash').subscribe(data => {
+      this.response = data;
+      this.paymentData.hash = this.response.code;
+      this.paymentData.time = this.response.time;
+  }, err => {
+    alert('error')
+  });
     this.message = "";
     this.http.get('/api/user', httpOptions).subscribe(data => {
       this.response = data;
@@ -57,6 +73,8 @@ export class OrderDeliveryComponent implements OnInit {
               username:this.response.username
           }
       }
+
+
   }, err => {
       if(err.status === 401) {
         this.userLogged = false;
@@ -80,6 +98,18 @@ export class OrderDeliveryComponent implements OnInit {
         }, err => {
             this.message = err.error.msg;
        });
+    }
+
+
+    onSubmit() {
+      
+        console.log(this);
+      
+    }
+
+    payment() {
+      console.log(this.paymentFormRef);
+      this.paymentFormRef.nativeElement.submit();
     }
 
 }

@@ -28,5 +28,22 @@
   </form>
 </div>
 
+<form name="CredomaticPost" id="payment-form" method="post" #paymentForm="ngForm" #paymentFormRef (ngSubmit)="payment()" action="https://credomatic.compassmerchantsolutions.com/api/transact.php">
+
+<input type="text" name="type" value="sale"/> 
+<input type="text" name="key_id" value="9366621"/>
+<input type="text" name="hash" [(ngModel)]="paymentData.hash" />
+<input type="text" name="time" [(ngModel)]="paymentData.time" />
+<input type="text" name="cvv" value="345"/>
+<input type="text" name="ccnumber" value="4012001011000771"/>
+<input type="text" name="ccexp" value="1220"/>
+<input type="text" name="amount" value="1.00"/>
+<input type="text" name="orderid" value="test1"/>
+<input type="text" name="redirect" value="http://localhost:3333/payment-result"/>
+<input type="submit" value="Enviar Transacción"/>
+
+</form>
+
+
 
 <app-footer></app-footer>

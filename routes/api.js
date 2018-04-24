@@ -10,6 +10,7 @@ var router = express.Router();
 var User = require("../models/user");
 var Book = require("../models/book");
 var Cart = require("../models/cart");
+var md5 = require('md5');
 var Airtable = require('airtable');
 
 
@@ -264,6 +265,22 @@ router.get('/user', passport.authenticate('jwt', { session: false}), function(re
   }
 });
 
+
+
+router.get('/get-hash', function(req, res) {
+  //var token = getToken(req.headers);
+  var date = Math.floor(new Date() / 1000);
+  if (true) {
+    var codeOriginal = "test1|1.00|"+date+"|Mj725VBHh5UZ4hPKj8Uqd3HAnGKYHCbC";
+    var code = md5(codeOriginal);
+    res.json({code:code, nonhashe:codeOriginal, time:date});
+  } else {
+    return res.status(403).send({success: false, msg: 'Could not create hash'});
+  }
+});
+
+
+
 router.get('/book', passport.authenticate('jwt', { session: false}), function(req, res) {
   var token = getToken(req.headers);
   if (token) {
@@ -275,6 +292,7 @@ router.get('/book', passport.authenticate('jwt', { session: false}), function(re
     return res.status(403).send({success: false, msg: 'Unauthorized.'});
   }
 });
+
 
 router.get('/cart', function(req, res, next) {
   var currentCart = new Cart(req.session.cart ? req.session.cart:{});

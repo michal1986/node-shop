@@ -29,6 +29,7 @@ import { MatDialogModule} from '@angular/material';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { OrderConfirmedDialogComponent } from './order-confirmed-dialog/order-confirmed-dialog.component';
 import { MessageSentDialogComponent } from './message-sent-dialog/message-sent-dialog.component';
+import { PaymentResultComponent } from './payment-result/payment-result.component';
 
 const appRoutes: Routes = [
   {
@@ -97,6 +98,11 @@ const appRoutes: Routes = [
     data: { title: 'Order payment method' }
   },
   {
+    path: 'payment-result',
+    component: PaymentResultComponent,
+    data: { title: 'PaymentResult' }
+  },
+  {
     path: 'product/:id',
     component: ProductDetailsComponent,
     data: { title: 'Product' }
@@ -141,7 +147,8 @@ const appRoutes: Routes = [
     CartComponent,
     AddedToCartDialogComponent,
     OrderConfirmedDialogComponent,
-    MessageSentDialogComponent
+    MessageSentDialogComponent,
+    PaymentResultComponent
   ],
   imports: [
     BrowserModule,
