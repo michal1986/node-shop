@@ -133,6 +133,7 @@ router.post('/confirm-order', function(req, res) {
         ],
             "Order received": today,
             "Items" : JSON.stringify(req.session.cart.items),
+            "Email" :req.body.email,
             "FirstName" :req.body.firstName,
             "LastName" :req.body.lastName,
             "Address" : req.body.address,
@@ -294,6 +295,43 @@ router.get('/book', passport.authenticate('jwt', { session: false}), function(re
 });
 
 
+<<<<<<< HEAD
+=======
+router.get('/my-orders', passport.authenticate('jwt', { session: false}), function(req, res) {
+  var token = getToken(req.headers);
+  if (token) {
+    var decoded = jwt.verify(token, config.secret);
+    console.log(decoded);
+    delete decoded.password;
+    var email = decoded.username;
+    var formula = "and({Email}='"+email+"')";
+    console.log(formula);
+      var ordersArr = [];
+      airtableBase ('Orders').select({
+          view: "Grid view",
+          filterByFormula:formula,
+      }).eachPage(function page(records, fetchNextPage) {
+    
+        records.forEach(function(record) {
+            ordersArr.push(record);
+        });
+
+       fetchNextPage();
+
+    }, function done(err) {
+        if (err) { 
+          console.error(err);
+          return; 
+        }
+        res.json({success: true, orders:ordersArr});
+    });
+
+  } else {
+    return res.status(403).send({success: false, msg: 'Unauthorized.'});
+  }
+});
+
+>>>>>>> origin/wishlist
 router.get('/cart', function(req, res, next) {
   var currentCart = new Cart(req.session.cart ? req.session.cart:{});
   req.session.cart = currentCart;

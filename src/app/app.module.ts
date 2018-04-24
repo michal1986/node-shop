@@ -83,6 +83,11 @@ const appRoutes: Routes = [
     data: { title: 'My account' }
   },
   {
+    path: 'my-orders',
+    component: MyOrdersComponent,
+    data: { title: 'My Orders' }
+  },
+  {
     path: 'order-delivery',
     component: OrderDeliveryComponent,
     data: { title: 'Order delivery' }
