@@ -1,5 +1,5 @@
 import { Component, OnInit, Inject } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders  } from '@angular/common/http';
 import { Router, ActivatedRoute } from "@angular/router";
 import { Observable } from 'rxjs/Observable';
 import { tap, catchError } from 'rxjs/operators';
@@ -55,7 +55,6 @@ export class ProductsComponent implements OnInit {
 
 
 addToCart(idProduct) {
-   
     this.http.get('/api/add-to-cart/'+idProduct).subscribe(data => {
         this.response = data;
         console.log(this.response);
@@ -64,7 +63,17 @@ addToCart(idProduct) {
             width: '400px',
           });
     });
-    
+}
+
+
+addToWishlist(idProduct) {
+    let httpOptions = {
+        headers: new HttpHeaders({ 'Authorization': localStorage.getItem('jwtToken') })
+      };
+    this.http.get('/api/add-to-wishlist/'+idProduct, httpOptions).subscribe(data => {
+        this.response = data;
+        console.log(this.response);
+    });
 }
 
 }

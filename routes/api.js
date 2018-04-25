@@ -204,6 +204,25 @@ router.post('/signup', function(req, res) {
                 }
                 res.json({success: true, msg: 'Successful created new user.'});
             });
+            // save to Airtable
+            airtableBase('Clients').create({
+                "Name": newUser.firstName+" "+newUser.lastName,
+                "Notes (Internal)": "",
+                "Email": newUser.username,
+                "Phone": newUser.telephone,
+                "Country": newUser.country,
+                "Wishlist": [
+                ],
+                "Reviews": [
+                ],
+                "Orders": [
+                ]
+            }, function(err, record) {
+              if (err) { 
+                  console.error(err); 
+                  return; 
+              }
+          })
         } else {
             return res.json({success: false, msg: "Passwords don't match"});
         }
@@ -375,6 +394,49 @@ router.get('/add-to-cart/:id', function(req, res, next) {
       }
     });
 });
+
+
+router.get('/add-to-wishlist/:id', passport.authenticate('jwt', { session: false}),function(req, res, next) {
+    var token = getToken(req.headers);
+    if(token) {
+        var decoded = jwt.verify(token, config.secret);
+        delete decoded.password;
+        var email = decoded.username;
+        var productId = req.params.id;
+        var formula = "and({Email}='"+email+"')";
+        var clientArr = [];
+        airtableBase ('Clients').select({
+            view: "Grid view",
+            filterByFormula:formula,
+            }).eachPage(function page(records, fetchNextPage) {
+                records.forEach(function(record) {
+                    clientArr.push(record);
+                });
+              fetchNextPage();
+              }, function done(err) {
+                if (err) { 
+                  console.error(err);
+                  return; 
+                }
+                console.log(clientArr[0]);
+                if(clientArr[0]) {
+                    airtableBase('Wishlist').create({
+                        "Client": [clientArr[0].id],
+                        "Product": [productId]
+                    }, function(err, record) {
+                        if (err) { 
+                            console.error(err); 
+                            return; 
+                        }
+                    })
+                  };
+                  return res.status(200).send({success: true});
+             });
+      } else {
+        return res.status(403).send({success: false, msg: 'Unauthorized.'});
+      }
+});
+   
 
 
 router.get('/empty-cart', function(req, res, next) {

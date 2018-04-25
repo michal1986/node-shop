@@ -30,7 +30,7 @@ export class LoginComponent implements OnInit {
         this.http.post('/api/signin',this.loginData).subscribe(resp => {
             this.data = resp;
             localStorage.setItem('jwtToken', this.data.token);
-            this.router.navigate(['home']);
+            this.router.navigate(['products']);
         }, err => {
             this.message = err.error.msg;
         });
