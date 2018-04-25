@@ -1,6 +1,6 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Router } from "@angular/router";
+import { Router, ActivatedRoute } from "@angular/router";
 import { Observable } from 'rxjs/Observable';
 import { tap, catchError } from 'rxjs/operators';
 import { of } from 'rxjs/observable/of';
@@ -16,21 +16,31 @@ export class ProductsComponent implements OnInit {
 
   products:any;
   response:any;
+  categoryName:String;
+  url:string;
 
-  constructor(private http: HttpClient, private router: Router, public dialogRef: MatDialog) { 
+  constructor(private http: HttpClient, private router: Router, private route: ActivatedRoute, public dialogRef: MatDialog) { 
 
-
+    //const id: string = route.snapshot.toString();
+    console.log(route.snapshot.toString());
   }
 
   ngOnInit() {
 
     this.products = [];
-    
-    this.http.get('/api/products').subscribe(data => {
-      this.response = data;
-      this.response.products.forEach(product => {
-          product.fields.Price = product.fields.Price.toFixed(2);
-      });
+    this.route.queryParams.subscribe(params => {
+        this.categoryName = params.category;
+        if(this.categoryName) {
+            this.url = "/api/products?category="+this.categoryName;
+        } else {
+            this.url = "/api/products";
+        }
+        console.log("using url "+this.url);
+        this.http.get(this.url).subscribe(data => {
+            this.response = data;
+            this.response.products.forEach(product => {
+                product.fields.Price = product.fields.Price.toFixed(2);
+            });
         
       this.products = this.response.products;
        
@@ -40,6 +50,7 @@ export class ProductsComponent implements OnInit {
           //this.router.navigate(['login']);
       }
   });
+});
 }
 
 

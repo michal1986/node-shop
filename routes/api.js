@@ -19,10 +19,24 @@ var airtableBase = new Airtable({apiKey: 'key2rlTpmEcDJG0jE'}).base('appt5j605Nf
 
 router.get('/products', function(req, res) {
   var productsArr = [];
-  airtableBase ('Products').select({
-    // Selecting the first 3 records in Grid view:
-    view: "Grid view"
-}).eachPage(function page(records, fetchNextPage) {
+  var params = req.query;
+  var categoryName = "";
+  if(params.category) {
+    var categoryName = params.category.toLowerCase();
+  }
+  
+  if(categoryName.length > 0) {
+    var airtableParams = {
+      view:"Grid view",
+      filterByFormula: "and(LOWER(Category)='"+categoryName+"')"
+    }
+  } else {
+    var airtableParams = {
+      view:"Grid view",
+    }
+  }
+  
+  airtableBase ('Products').select(airtableParams).eachPage(function page(records, fetchNextPage) {
     // This function (`page`) will get called for each page of records.
 
     records.forEach(function(record) {
@@ -39,7 +53,6 @@ router.get('/products', function(req, res) {
 });
    
 });
-
 
 
 
@@ -299,11 +312,9 @@ router.get('/my-orders', passport.authenticate('jwt', { session: false}), functi
   var token = getToken(req.headers);
   if (token) {
     var decoded = jwt.verify(token, config.secret);
-    console.log(decoded);
     delete decoded.password;
     var email = decoded.username;
     var formula = "and({Email}='"+email+"')";
-    console.log(formula);
       var ordersArr = [];
       airtableBase ('Orders').select({
           view: "Grid view",
