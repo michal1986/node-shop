@@ -295,8 +295,6 @@ router.get('/book', passport.authenticate('jwt', { session: false}), function(re
 });
 
 
-<<<<<<< HEAD
-=======
 router.get('/my-orders', passport.authenticate('jwt', { session: false}), function(req, res) {
   var token = getToken(req.headers);
   if (token) {
@@ -331,7 +329,7 @@ router.get('/my-orders', passport.authenticate('jwt', { session: false}), functi
   }
 });
 
->>>>>>> origin/wishlist
+
 router.get('/cart', function(req, res, next) {
   var currentCart = new Cart(req.session.cart ? req.session.cart:{});
   req.session.cart = currentCart;
