@@ -61,7 +61,6 @@ router.get('/makers', function(req, res) {
   var makersArr = [];
   airtableBase('Makers').select({
     // Selecting the first 3 records in Grid view:
-    maxRecords: 3,
     view: "Grid view"
 }).eachPage(function page(records, fetchNextPage) {
     // This function (`page`) will get called for each page of records.
@@ -88,6 +87,20 @@ router.get('/product-details/:id', function(req, res) {
   var product = {};
   var productId = req.params.id;
   airtableBase ('Products').find(productId, function(err, record){
+    if(err) {
+      console.error(err);
+      return;
+    } else {
+      res.json(record);
+    }
+  });
+});
+
+
+router.get('/maker-details/:id', function(req, res) {
+  var product = {};
+  var makerId = req.params.id;
+  airtableBase ('Makers').find(makerId, function(err, record){
     if(err) {
       console.error(err);
       return;

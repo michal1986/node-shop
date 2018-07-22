@@ -21,21 +21,28 @@
 
 <div class="row row-separator"></div>
 
+
+
+<a [routerLink]="['/maker-story/', maker.id]">
 <div class="row justify-content-center">
 
+
 <div class="col-5"><img src="{{maker.fields.Picture[0].url}}" width="100%"/></div>
-<div class="col-5 col-quote"><span class="comillas">"</span>{{maker.fields.Story}}<span class="comillas">"</span>
+<div class="col-5 col-quote"><span class="comillas">"</span>{{maker.fields.Name}}<span class="comillas">"</span>
 	<br />
-	{{maker.fields.Name}} from <span class="brand-name">{{maker.fields.Brand}}</span>
+	{{maker.fields.Name}} from <span class="brand-name">{{maker.fields.Bio}}</span>
 </div>
 </div>
+
+</a>
+
 
 <div class="row row-more-products">
 	<div class="col-1"></div>
-	<div class="col-2"><img src="{{maker.fields.Picture[0].url}}" width="100%"/></div>
-	<div class="col-2"><img src="{{maker.fields.Picture[0].url}}" width="100%"/></div>
-	<div class="col-2"><img src="{{maker.fields.Picture[0].url}}" width="100%"/></div>
-	<div class="col-3"><div class="more-from">More from "{{maker.fields.Brand}}"</div></div>
+	<div class="col-2"><img src="" width="100%"/></div>
+	<div class="col-2"><img src="" width="100%"/></div>
+	<div class="col-2"><img src="" width="100%"/></div>
+	<!--<div class="col-3"><div class="more-from">More from "{{maker.fields.Brand}}"</div></div>-->
 </div>
 
 

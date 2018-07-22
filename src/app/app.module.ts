@@ -30,6 +30,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { OrderConfirmedDialogComponent } from './order-confirmed-dialog/order-confirmed-dialog.component';
 import { MessageSentDialogComponent } from './message-sent-dialog/message-sent-dialog.component';
 import { PaymentResultComponent } from './payment-result/payment-result.component';
+import { MakerStoryComponent } from './maker-story/maker-story.component';
 
 const appRoutes: Routes = [
   {
@@ -122,6 +123,11 @@ const appRoutes: Routes = [
     component: BlogPostComponent,
     data: { title: 'Blog Id' }
   },
+  {
+    path: 'maker-story/:id',
+    component: MakerStoryComponent,
+    data: { title: 'Maker Story' }
+  },
   { path: '',
     redirectTo: '/products',
     pathMatch: 'full'
@@ -153,7 +159,8 @@ const appRoutes: Routes = [
     AddedToCartDialogComponent,
     OrderConfirmedDialogComponent,
     MessageSentDialogComponent,
-    PaymentResultComponent
+    PaymentResultComponent,
+    MakerStoryComponent
   ],
   imports: [
     BrowserModule,

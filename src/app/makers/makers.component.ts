@@ -22,7 +22,13 @@ export class MakersComponent implements OnInit {
   ngOnInit() {
     this.http.get('/api/makers').subscribe(data => {
         this.response = data;
-        this.makers = this.response.makers
+        var makersArr = [];
+        this.response.makers.forEach(maker => {
+            if(typeof maker.fields.Picture !== 'undefined') {
+                 makersArr.push(maker);
+            }
+        });
+        this.makers = makersArr;
 
        
       console.log(this.makers);
