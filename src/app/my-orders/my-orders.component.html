@@ -4,6 +4,7 @@
 
 
 <div class="container">
+
    <div class="row row-products">
       <div class="col-1"></div>
       <div class="col-4">
@@ -12,7 +13,7 @@
          <div class="account-menu-option">Payment Methods</div>
          <div class="account-menu-option">Address Book</div>
          <div class="account-menu-title">Orders</div>
-         <div class="account-menu-option">Order History</div>
+         <div class="account-menu-option"><a class="a-not-link" [routerLink]="['/my-orders/']" >Order History</a></div>
          <div class="account-menu-option">Open Orders</div>
          <div class="account-menu-option">Cancelled Orders</div>
          <!--
@@ -21,10 +22,33 @@
          <div class="account-menu-option">Name List 2</div>
           -->
       </div>
-      orders
-   </div>
-</div>
+  
+        <div class="col-6">
+         <div class="account-right-title">My orders history</div>
 
+             <div class='single-order-box' *ngFor="let order of orders">
+               
+              <div class='single-order-box-title'>
+                  ID: {{order.id}} <br/>
+                  date: {{order.fields['Order received']}} <br/>
+                  status: {{order.fields.Status}} <br/>
+              </div>
+
+              <div class='single-order-box-items'>
+                 
+                 <b>items:</b><br/>
+                 {{order.fields['Items']}};
+
+              </div>
+
+
+           </div>
+
+   </div>
+
+   </div>
+
+</div>
 
 <app-footer></app-footer>
 
