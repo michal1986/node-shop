@@ -190,10 +190,10 @@ router.post('/confirm-order', function(req, res) {
 
     var nicelyParsedProducts = "";
     for(var i = 0; i<json.length; i++){
-        if(i == 0) {
-            nicelyParsedProducts = nicelyParsedProducts +""+json[i].quantity+"x "+json[i].name+" (id:"+json[i].id+") - "+ json[i].price+ " each";
+        if(i == (json.length-1)) {
+            nicelyParsedProducts = nicelyParsedProducts+json[i].quantity+"x "+json[i].name+" (id:"+json[i].id+") - "+ json[i].price+ " each \n";
         } else {
-            nicelyParsedProducts = nicelyParsedProducts +", "+json[i].quantity+"x "+json[i].name+" (id:"+json[i].id+") - "+ json[i].price+ " each";
+            nicelyParsedProducts = nicelyParsedProducts+json[i].quantity+"x "+json[i].name+" (id:"+json[i].id+") - "+ json[i].price+ " each, \n";
         }
         
     }
