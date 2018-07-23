@@ -24,7 +24,8 @@ export class OrderDeliveryComponent implements OnInit {
     address : '',
     zip: '',
     city: '',
-    country: ''
+    country: '',
+    email:''
   };
   paymentData = {
       hash:'',
@@ -63,6 +64,7 @@ paymentForm:any;
       this.confirmDelivery.lastName = this.response.lastName;
       this.confirmDelivery.telephone = this.response.telephone;
       this.confirmDelivery.address = this.response.address;
+      this.confirmDelivery.email = this.response.username;
       this.confirmDelivery.zip = this.response.zip;
       this.confirmDelivery.city = this.response.city;
       this.confirmDelivery.country = this.response.country;
