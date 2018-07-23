@@ -31,6 +31,8 @@ import { OrderConfirmedDialogComponent } from './order-confirmed-dialog/order-co
 import { MessageSentDialogComponent } from './message-sent-dialog/message-sent-dialog.component';
 import { PaymentResultComponent } from './payment-result/payment-result.component';
 import { MakerStoryComponent } from './maker-story/maker-story.component';
+import { ItemsComponent } from './items/items.component';
+import { ItemDetailsComponent } from './item-details/item-details.component';
 
 const appRoutes: Routes = [
   {
@@ -74,6 +76,21 @@ const appRoutes: Routes = [
     data: { title: 'Market' }
   },
   {
+    path: 'product/:id',
+    component: ProductDetailsComponent,
+    data: { title: 'Product' }
+  },
+  {
+    path: 'items',
+    component: ItemsComponent,
+    data: { title: 'Market' }
+  },
+  {
+    path: 'item/:id',
+    component: ItemDetailsComponent,
+    data: { title: 'Product' }
+  },
+  {
     path: 'cart',
     component: CartComponent,
     data: { title: 'Cart' }
@@ -109,11 +126,6 @@ const appRoutes: Routes = [
     data: { title: 'PaymentResult' }
   },
   {
-    path: 'product/:id',
-    component: ProductDetailsComponent,
-    data: { title: 'Product' }
-  },
-  {
     path: 'blog',
     component: BlogComponent,
     data: { title: 'Blog' }
@@ -129,7 +141,7 @@ const appRoutes: Routes = [
     data: { title: 'Maker Story' }
   },
   { path: '',
-    redirectTo: '/products',
+    redirectTo: '/items',
     pathMatch: 'full'
   }
 ];
@@ -160,7 +172,9 @@ const appRoutes: Routes = [
     OrderConfirmedDialogComponent,
     MessageSentDialogComponent,
     PaymentResultComponent,
-    MakerStoryComponent
+    MakerStoryComponent,
+    ItemsComponent,
+    ItemDetailsComponent
   ],
   imports: [
     BrowserModule,

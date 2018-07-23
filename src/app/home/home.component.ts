@@ -25,7 +25,22 @@ export class HomeComponent implements OnInit {
 
   ngOnInit() {
     
-    this.http.get('/api/products').subscribe(data => {
+    /*this.http.get('/api/products').subscribe(data => {
+      this.response = data;
+      this.response.products.forEach(product => {
+          product.fields.Price = product.fields.Price.toFixed(2);
+      });
+        
+      this.products = this.response.products;
+       
+      //console.log(this.products);
+  }, err => {
+      if(err.status === 401) {
+          //this.router.navigate(['login']);
+      }
+  });*/
+
+this.http.get('/api/items').subscribe(data => {
       this.response = data;
       this.response.products.forEach(product => {
           product.fields.Price = product.fields.Price.toFixed(2);
@@ -44,7 +59,7 @@ export class HomeComponent implements OnInit {
 
 addToCart(idProduct) {
    
-    this.http.get('/api/add-to-cart/'+idProduct).subscribe(data => {
+    this.http.get('/api/add-item-to-cart/'+idProduct).subscribe(data => {
         this.response = data;
         console.log(this.response);
         this.dialogRef.open(AddedToCartDialogComponent, {

@@ -1,0 +1,45 @@
+<app-topmenu></app-topmenu>
+
+    <div class="container">
+        <div class="row row-product">
+
+            <div class="col-6">
+            <div class="product-photo"><img src="{{singleProduct.fields.Fotos[0].url}}" width="100%"/></div>
+            </div>
+            <div class="col-6">
+            <div class="product-name-big">{{singleProduct.fields.Name}}</div>
+            <!--<div class="product-brand-big">{{singleProduct.Maker.fields.Name}}</div>-->
+            <div class="product-brand-big">{{singleProduct.fields["Product Description"]}}</div><br/>
+            <div class="product-brand-big">Delivery time:</div>
+            <div class="product-brand-big">{{singleProduct.fields["Delivery Time"][0]}}</div>
+            <br/>
+            <div class="product-price-big">$ {{singleProduct.fields.Price}}</div>
+            <!--<div class="product-reviews-big">★★★★★ Reviews</div>-->
+
+            <!--<div class="product-quantity-big">Quantity<br />	<select>
+            <option value="1">1</option>
+
+            
+            </select></div>
+              -->
+            <div class="product-name-big"></div>
+            </div>
+            
+            
+            </div>
+
+            <div class="row">
+                <div class="col-6 thumbnails">
+                    <div class="thumbnail" *ngFor="let singleProductPicture of singleProduct.fields.Fotos">
+                        <img src="{{singleProductPicture.url}}" width="50px;"/>
+                    </div>
+                </div>
+                
+                <div class="col-6 product-btns">
+                  <a (click)="addToCart(singleProduct.id, singleProduct.fields.Price)" class="btn btn-primary add-to-cart-button">Add to cart</a>
+                  <a (click)="addToWishlist(singleProduct.id)" class="btn btn-primary add-to-cart-button-small">Add to wishlist</a>
+                </div>
+                </div>
+    </div>
+
+<app-footer></app-footer>

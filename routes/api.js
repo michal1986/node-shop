@@ -55,6 +55,44 @@ router.get('/products', function(req, res) {
 });
 
 
+router.get('/items', function(req, res) {
+  var productsArr = [];
+  var params = req.query;
+  var categoryName = "";
+  if(params.category) {
+    var categoryName = params.category.toLowerCase();
+  }
+  
+  if(categoryName.length > 0) {
+    var airtableParams = {
+      view:"Grid view",
+      filterByFormula: "and(LOWER(Category)='"+categoryName+"')"
+    }
+  } else {
+    var airtableParams = {
+      view:"Grid view",
+    }
+  }
+  
+  airtableBase ('Items').select(airtableParams).eachPage(function page(records, fetchNextPage) {
+    // This function (`page`) will get called for each page of records.
+
+    records.forEach(function(record) {
+      productsArr.push(record);
+    });
+
+    fetchNextPage();
+
+}, function done(err) {
+    if (err) { 
+      console.error(err); return; 
+    }
+    res.json({success: true, products:productsArr});
+});
+   
+});
+
+
 
 
 router.get('/makers', function(req, res) {
@@ -406,8 +444,39 @@ router.get('/add-to-cart/:id', function(req, res, next) {
         res.json(newCart);
       }
     });
+
 });
 
+
+
+router.get('/add-item-to-cart/:id', function(req, res, next) {
+  var productId = req.params.id;
+  airtableBase ('Items').find(productId, function(err, record){
+    if(err) {
+      console.error(err);
+      return;
+    } else {
+        var newCart = new Cart(req.session.cart ? req.session.cart:{});
+        var formattedPrice = parseFloat(record.fields.Price).toFixed(2);
+        var imageUrl = "";
+        if(typeof record.fields.Fotos[0] !== 'undefined') {
+          imageUrl = record.fields.Fotos[0].url;
+        }
+        var newItem = {
+            id:record.id,
+            name:record.fields.Name,
+            price:formattedPrice,
+            quantity:1,
+            imageUrl:imageUrl
+        };
+        newCart.add(newItem);
+        req.session.cart = newCart;
+        //res.send(JSON.stringify(req.session));
+        res.json(newCart);
+      }
+    });
+
+});
 
 router.get('/add-to-wishlist/:id', passport.authenticate('jwt', { session: false}),function(req, res, next) {
     var token = getToken(req.headers);
@@ -450,6 +519,47 @@ router.get('/add-to-wishlist/:id', passport.authenticate('jwt', { session: false
       }
 });
    
+
+router.get('/add-item-to-wishlist/:id', passport.authenticate('jwt', { session: false}),function(req, res, next) {
+    var token = getToken(req.headers);
+    if(token) {
+        var decoded = jwt.verify(token, config.secret);
+        delete decoded.password;
+        var email = decoded.username;
+        var productId = req.params.id;
+        var formula = "and({Email}='"+email+"')";
+        var clientArr = [];
+        airtableBase ('Clients').select({
+            view: "Grid view",
+            filterByFormula:formula,
+            }).eachPage(function page(records, fetchNextPage) {
+                records.forEach(function(record) {
+                    clientArr.push(record);
+                });
+              fetchNextPage();
+              }, function done(err) {
+                if (err) { 
+                  console.error(err);
+                  return; 
+                }
+                console.log(clientArr[0]);
+                if(clientArr[0]) {
+                    airtableBase('Wishlist').create({
+                        "Client": [clientArr[0].id],
+                        "Product": [productId]
+                    }, function(err, record) {
+                        if (err) { 
+                            console.error(err); 
+                            return; 
+                        }
+                    })
+                  };
+                  return res.status(200).send({success: true});
+             });
+      } else {
+        return res.status(403).send({success: false, msg: 'Unauthorized.'});
+      }
+});
 
 
 router.get('/empty-cart', function(req, res, next) {

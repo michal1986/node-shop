@@ -3,10 +3,25 @@
     <div class="container">
         <div class="row">
             
-             <div class="col-12"><div class="product-name-big">{{singleMaker.fields.Name}}</div>   
-             <div class="col-12"><img src="{{singleMaker.fields.Picture[0].url}}" width="100%"/></div> 
-             <div class="col-12"><div class="product-name-big">{{singleMaker.fields.Bio}}</div>    
+             <div class="col-12"><div class="product-name-big">{{singleMaker.fields.Name}}</div></div>
+             <div class="col-12"><img src="{{singleMaker.fields['Profile Banner'][0].url}}" width="100%"/></div> 
+             <div class="col-12"><div class="product-name-big">{{singleMaker.fields.Bio}}</div></div>
+             <div class="col-12"><div class="product-brand-big">{{singleMaker.fields.Detail}}</div> </div>  
             
+        </div>
+     
+
+        <div class="row">
+        
+             <div class="col-3 margin-top-15" *ngFor="let product of singleMaker.fields['Productos destacados']">
+     
+                 <a [routerLink]="['/item/', product.id]" >
+                     <img src="{{product.url}}" width="100%" />
+                  </a>
+
+             </div>
+             <div class="clear"></div>
+
         </div>
 
     </div>

@@ -1,0 +1,31 @@
+<app-topmenu></app-topmenu>
+
+<div class="container">
+<div class="row row-header">
+    <div class="col-12 col-header">
+      <div class="header">
+        <img src="assets/img/header.png" width="100%" />
+      </div>
+    </div>
+  </div>
+  <div class="row-title">
+    <div class="col-12 col-title">
+      Market</div>
+  </div>
+  <div class="row">
+    <div class="col-3 col-items" *ngFor="let product of products">
+      <a [routerLink]="['/item/', product.id]" 
+          ><img class="items-list-mainphoto" src="{{product.fields.Fotos[0].url}}" width="100%" />
+      </a>
+      <div class="product-name">{{product.fields.Name}}</div>
+      <div class="product-brand">{{product.fields.Category}}</div>
+      <div class="product-price">${{product.fields.Price}}</div>
+      <a (click)="addToCart(product.id, product.fields.Price)" class="btn btn-primary add-to-cart-button-small">Add to cart</a>
+      <a (click)="addToWishlist(product.id)" class="btn btn-primary add-to-cart-button-small">Add to wishlist</a>
+      <br/>
+      <!--<a href="#!" class="btn btn-primary closeit add-to-cart-button-small">Add to wishlist</a>-->
+    </div>
+  </div>
+
+
+<app-footer></app-footer>
