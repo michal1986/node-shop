@@ -186,6 +186,18 @@ router.post('/confirm-order', function(req, res) {
         mm='0'+mm;
     }     
     var today = yyyy+"-"+mm+"-"+dd;
+    var json = req.session.cart.items;
+
+    var nicelyParsedProducts = "";
+    for(var i = 0; i<json.length; i++){
+        if(i == 0) {
+            nicelyParsedProducts = nicelyParsedProducts +""+json[i].quantity+"x "+json[i].name+" (id:"+json[i].id+") - "+ json[i].price+ " each";
+        } else {
+            nicelyParsedProducts = nicelyParsedProducts +", "+json[i].quantity+"x "+json[i].name+" (id:"+json[i].id+") - "+ json[i].price+ " each";
+        }
+        
+    }
+
 
     airtableBase('Orders').create({
         "Notes (Internal)": "",
@@ -196,7 +208,7 @@ router.post('/confirm-order', function(req, res) {
            
         ],
             "Order received": today,
-            "Items" : JSON.stringify(req.session.cart.items),
+            "Items" : nicelyParsedProducts,
             "Email" :req.body.email,
             "FirstName" :req.body.firstName,
             "LastName" :req.body.lastName,
