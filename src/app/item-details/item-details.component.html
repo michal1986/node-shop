@@ -5,62 +5,69 @@
 
             <div class="col-6">
             <div class="product-photo">
-                <ui-carousel [infinite]="true" [fade]="false" [speed]="600" [autoPlaySpeed]="3000">
+                <ui-carousel [infinite]="true" [fade]="true" [speed]="1600" class="carousel">
                     <ui-carousel-item *ngFor="let foto of slider">
-                       <img [ui-lazy-load]="foto.url" class="item-details-slider-photo">
+                       <img [ui-lazy-load]="foto.url" class="item-details-slider-photo" width="100%" >
                     </ui-carousel-item>
                 </ui-carousel>
-             
-                <div class="items-details-content-buttons-container">
-                    <a class="items-details-content-button" [ngClass]="{selected: showContent==='productDetails'}" (click)="switchContent('productDetails')">
-                        Product Details
-                    </a>
-                    <a class="items-details-content-button" [ngClass]="{selected: showContent==='shippingDetails'}" (click)="switchContent('shippingDetails')">
-                        Shipping Details
-                    </a>
-                    <a class="items-details-content-button" [ngClass]="{selected: showContent==='brandStory'}" (click)="switchContent('brandStory')">
-                        Brand Story
-                    </a>
                 </div>
-            </div>
-            </div>
-            <div class="col-6">
-            <div class="product-name-big">{{singleProduct.fields.Name}}</div>
-            <!--<div class="product-brand-big">{{singleProduct.Maker.fields.Name}}</div>-->
-            <div class="product-brand-big" [hidden]="showContent!=='productDetails'">
-                {{singleProduct.fields["Product Description"]}}</div>
-            <div class="product-brand-big" [hidden]="showContent!=='brandStory'">
-                {{singleProduct.fields.brandStory}}</div>
-            <div class="product-brand-big" [hidden]="showContent!=='shippingDetails'">
-                {{singleProduct.fields["Delivery Time"][0]}}</div>
-            <br/>
-            <div class="product-price-big">$ {{singleProduct.fields.finalPrice}}</div>
-            <!--<div class="product-reviews-big">★★★★★ Reviews</div>-->
 
-            <!--<div class="product-quantity-big">Quantity<br />	<select>
-            <option value="1">1</option>
-
-            
-            </select></div>
-              -->
-            <div class="product-name-big"></div>
-            </div>
-            
-            
-            </div>
-
-            <div class="row">
-                <div class="col-6 thumbnails">
+                <div class="thumbnails">
                     <div class="thumbnail" *ngFor="let singleProductPicture of singleProduct.fields.Fotos">
                         <img src="{{singleProductPicture.url}}" width="50px;"/>
                     </div>
                 </div>
-                
-                <div class="col-6 product-btns">
-                  <a (click)="addToCart(singleProduct.id, singleProduct.fields.Price)" class="btn btn-primary add-to-cart-button">Add to cart</a>
-                  <a (click)="addToWishlist(singleProduct.id)" class="btn btn-primary add-to-cart-button-small">Add to wishlist</a>
+<hr />
+                <div class="items-details-content-buttons-container">
+                    <a class="items-details-content-button" [ngClass]="{selected: showContent==='productDetails'}" (click)="switchContent('productDetails')">
+                        Product Details
+                    </a><span>|</span>
+                    <a class="items-details-content-button" [ngClass]="{selected: showContent==='shippingDetails'}" (click)="switchContent('shippingDetails')">
+                        Shipping Details
+                    </a><span>|</span>
+                    <a class="items-details-content-button" [ngClass]="{selected: showContent==='brandStory'}" (click)="switchContent('brandStory')">
+                        Brand Story
+                    </a>
                 </div>
+  </div>
+<div class="col-6">
+<div class="product-name-big">{{singleProduct.fields.Name}}</div>
+
+  <!-- <div class="product-brand-big">{{singleProduct.Maker.fields.Name}}</div> -->
+<br />
+<div class="product-price-big">$ {{singleProduct.fields.finalPrice}}</div>
+<br />
+<div class="product-reviews-big">★★★★★ Reviews</div>
+<br />
+<div class="product-quantity-big">Quantity<br />	<select>
+<option value="1">1</option>
+</select></div>
+<br /><br /><br />
+<a (click)="addToCart(singleProduct.id, singleProduct.fields.Price)" class="btn add-cart2">Add to cart</a><br /><br />
+<a (click)="addToWishlist(singleProduct.id)" class="btn add-cart2">Add to wishlist</a>
+</div>
+  </div>
+
+  <div class="row">
+<div class="col-6">
+<div class="product-brand-big" [hidden]="showContent!=='productDetails'">
+    {{singleProduct.fields["Product Description"]}}</div>
+<div class="product-brand-big" [hidden]="showContent!=='brandStory'">
+    {{singleProduct.fields.brandStory}}</div>
+<div class="product-brand-big" [hidden]="showContent!=='shippingDetails'">
+    {{singleProduct.fields["Delivery Time"][0]}}</div>
+<br/>
+</div>
+
+
+
+
+
+
+
+
                 </div>
+
     </div>
 
 <app-footer></app-footer>
