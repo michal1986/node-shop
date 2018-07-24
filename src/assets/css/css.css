@@ -96,6 +96,7 @@ font-size: 12px!important;
 margin-top: 0px;
 color: #FFF!important;
 background-color: #42B4B6;
+margin-bottom: 10px;
 }
 
 .add-wish{background-color: #FFF!important;
@@ -104,8 +105,22 @@ margin-top: -5px}
 
 .add-wish:hover{color: #42B4B6!important;}
 
-.view-cart{width: 50%;}
-.continue{width: 50%;}
+
+
+.mat-dialog-container{
+  background-color: #42B4B6!important;
+  border-radius: 10px!important;
+  color: #FFF!important;
+}
+
+.added-to-cart{
+  border-top:thin solid #FFF;
+  width: 100%;
+  padding-top: 20px;
+}
+
+.view-cart{width: 37%;float:left}
+.continue{width: 55%; float:right}
 
 .cart-price{float: right;}
 

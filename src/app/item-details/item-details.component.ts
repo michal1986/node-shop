@@ -20,7 +20,7 @@ export class ItemDetailsComponent implements OnInit {
   showContent:string;
   slider:any;
 
-  constructor(private http: HttpClient, private router: Router, private route: ActivatedRoute, public dialogRef: MatDialog) { 
+  constructor(private http: HttpClient, private router: Router, private route: ActivatedRoute, public dialogRef: MatDialog) {
 
 
   }
