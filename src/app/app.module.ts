@@ -101,7 +101,7 @@ const appRoutes: Routes = [
     data: { title: 'My account' }
   },
   {
-    path: 'my-orders',
+    path: 'my-orders/:status',
     component: MyOrdersComponent,
     data: { title: 'My Orders' }
   },

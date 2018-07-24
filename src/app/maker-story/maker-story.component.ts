@@ -17,6 +17,7 @@ export class MakerStoryComponent implements OnInit {
   singleMaker:any;
   singleMakerId:string;
   response:any;
+  makerItems:any;
 
   constructor(private http: HttpClient, private router: Router, private route: ActivatedRoute, public dialogRef: MatDialog) {
 
@@ -29,7 +30,27 @@ export class MakerStoryComponent implements OnInit {
           this.http.get('/api/blog-post-details/'+this.singleMakerId).subscribe(data => {
               this.response = data;
               this.singleMaker = this.response;
-              console.log(this.singleMaker );
+              var commaSeperatedIds = "";
+              var iterator = 0;
+              this.singleMaker.fields.Items.forEach(item => {
+                  if(iterator == 0) {
+                       commaSeperatedIds = commaSeperatedIds + item;
+                  } else {
+                       commaSeperatedIds = commaSeperatedIds+","+item;
+                  }
+                  iterator++;
+                  
+              });
+              this.http.get('/api/records-by-id/?table=Items&recordsIds='+commaSeperatedIds+'').subscribe(data => {
+                  this.response = data;
+                  var filteredItems = [];
+                  this.response.objects.forEach(item => {
+                      if(typeof item.fields["Fotos"][0] !== 'undefined') {
+                          filteredItems.push(item);
+                      }
+                  });
+                  this.makerItems = filteredItems;
+              });
           });
       });
 

@@ -93,6 +93,53 @@ router.get('/items', function(req, res) {
 });
 
 
+router.get('/records-by-id/', function(req, res) {
+  var objectsArr = [];
+  var params = req.query;
+
+  var tableName = params.table;
+  var recordsIds = params.recordsIds;
+
+  var seperateCommas = recordsIds.split(",");
+  var buildFormula = "OR(";
+
+  for(var i = 0; i<seperateCommas.length; i++) {
+      if(i == (seperateCommas.length-1)) {
+          buildFormula = buildFormula + "RECORD_ID() = '"+seperateCommas[i]+"'";
+      } else {
+          buildFormula = buildFormula + "RECORD_ID() = '"+seperateCommas[i]+"', ";
+      }
+      
+  }
+
+  buildFormula = buildFormula + ")";
+
+  
+    var airtableParams = {
+      view:"Grid view",
+      filterByFormula: buildFormula
+    }
+
+  airtableBase (tableName).select(airtableParams).eachPage(function page(records, fetchNextPage) {
+    // This function (`page`) will get called for each page of records.
+
+    records.forEach(function(record) {
+      objectsArr.push(record);
+    });
+
+    fetchNextPage();
+
+}, function done(err) {
+    if (err) { 
+      console.error(err); return; 
+    }
+    res.json({success: true, objects:objectsArr});
+});
+
+   
+});
+
+
 
 
 router.get('/makers', function(req, res) {
@@ -120,6 +167,9 @@ router.get('/makers', function(req, res) {
 });
    
 });
+
+
+
 
 router.get('/product-details/:id', function(req, res) {
   var product = {};
@@ -191,9 +241,9 @@ router.post('/confirm-order', function(req, res) {
     var nicelyParsedProducts = "";
     for(var i = 0; i<json.length; i++){
         if(i == (json.length-1)) {
-            nicelyParsedProducts = nicelyParsedProducts+json[i].quantity+"x "+json[i].name+" (id:"+json[i].id+") - "+ json[i].price+ " each \n";
+            nicelyParsedProducts = nicelyParsedProducts+json[i].quantity+"x "+json[i].name+" (id:"+json[i].id+") - $"+ json[i].price+ " each \n";
         } else {
-            nicelyParsedProducts = nicelyParsedProducts+json[i].quantity+"x "+json[i].name+" (id:"+json[i].id+") - "+ json[i].price+ " each, \n";
+            nicelyParsedProducts = nicelyParsedProducts+json[i].quantity+"x "+json[i].name+" (id:"+json[i].id+") - $"+ json[i].price+ " each, \n";
         }
         
     }
@@ -392,11 +442,21 @@ router.get('/book', passport.authenticate('jwt', { session: false}), function(re
 
 router.get('/my-orders', passport.authenticate('jwt', { session: false}), function(req, res) {
   var token = getToken(req.headers);
+  var params = req.query;
+  var orderStatus = "";
+  if(params.status) {
+      orderStatus = params.status.toLowerCase();
+  }
   if (token) {
     var decoded = jwt.verify(token, config.secret);
     delete decoded.password;
     var email = decoded.username;
-    var formula = "and({Email}='"+email+"')";
+    if (orderStatus.length > 0) {
+        var formula = "and({Email}='"+email+"',LOWER(Status)='"+orderStatus+"' )";
+    } else {
+        var formula = "and({Email}='"+email+"')";
+    }
+    
       var ordersArr = [];
       airtableBase ('Orders').select({
           view: "Grid view",

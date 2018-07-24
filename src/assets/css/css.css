@@ -495,13 +495,18 @@ font-family: 'bold', sans-serif;}
 
 
 .single-order-box {
-  margin: 20px 0;
+  margin: 40px 0;
   font-size: 0.75em;
 }
 
 .single-order-box-title {
   font-weight: bold;
-  margin:20px 0;
+  margin:0px 0;
+}
+
+
+.single-order-sum-up {
+    text-align: right;
 }
 
 

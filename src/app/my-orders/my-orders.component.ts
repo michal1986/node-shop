@@ -18,57 +18,65 @@ export class MyOrdersComponent implements OnInit {
   loggedUser:any;
   response:any;
   orders:any;
+  orderStatus:string;
 
   constructor(private http: HttpClient, private router: Router, private route: ActivatedRoute, public dialogRef: MatDialog) { 
 
 
   }
 
-  ngOnInit() {
-
-   
-    let httpOptions = {
-      headers: new HttpHeaders({ 'Authorization': localStorage.getItem('jwtToken') })
-    };
-
-    this.http.get('/api/user', httpOptions).subscribe(data => {
-      this.response = data;
-      this.loggedUser = this.response;
-          this.http.get('/api/my-orders', httpOptions).subscribe(data => {
-          this.response = data;
-          this.response.orders.forEach(order => {
-              order.fields.parsedItems = order.fields["Items"].replace(/\n/g, "<br />")
-          });
-          this.orders = this.response.orders;
-          // this.loggedUser = this.response;
-          
-
-          }, err => {
-       
-           this.router.navigate(['login']);
-
-          if(err.status === 401) {
-            this.userLogged = false;
-            this.loggedUser = {
-              logged:false,
-              user: {}
-          }
-         }
-      });
-   } , err => {
-       
-       this.router.navigate(['login']);
-
-      if(err.status === 401) {
-        this.userLogged = false;
-        this.loggedUser = {
-          logged:false,
-          user: {}
-      }
-      }
-  });
+    ngOnInit() {
 
 
-  }
+        let httpOptions = {
+            headers: new HttpHeaders({
+                'Authorization': localStorage.getItem('jwtToken')
+            })
+        };
+
+        this.route.params.subscribe(params => {
+
+        this.orderStatus = params.status;
+        this.orderStatus = this.orderStatus.toLowerCase();
+
+        this.http.get('/api/user', httpOptions).subscribe(data => {
+            this.response = data;
+            this.loggedUser = this.response;
+            this.http.get('/api/my-orders?status='+this.orderStatus, httpOptions).subscribe(data => {
+                this.response = data;
+                this.response.orders.forEach(order => {
+                    order.fields.itemsParsed = order.fields["Items"].replace(/,/g, "<br />")
+                });
+                this.orders = this.response.orders;
+                // this.loggedUser = this.response;
+
+            }, err => {
+
+                this.router.navigate(['login']);
+
+                if (err.status === 401) {
+                    this.userLogged = false;
+                    this.loggedUser = {
+                        logged: false,
+                        user: {}
+                    }
+                }
+            });
+        }, err => {
+
+            this.router.navigate(['login']);
+
+            if (err.status === 401) {
+                this.userLogged = false;
+                this.loggedUser = {
+                    logged: false,
+                    user: {}
+                }
+            }
+        });
+
+     });
+
+    }
 
 }

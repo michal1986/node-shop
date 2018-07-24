@@ -13,9 +13,9 @@
          <div class="account-menu-option">Payment Methods</div>
          <div class="account-menu-option">Address Book</div>
          <div class="account-menu-title">Orders</div>
-         <div class="account-menu-option"><a class="a-not-link" [routerLink]="['/my-orders/']" >Order History</a></div>
-         <div class="account-menu-option">Open Orders</div>
-         <div class="account-menu-option">Cancelled Orders</div>
+         <div class="account-menu-option"><a class="a-not-link" [routerLink]="['/my-orders/', 'paid']">Order History</a></div>
+         <div class="account-menu-option"><a class="a-not-link" [routerLink]="['/my-orders/', 'ordered']">Open Orders</a></div>
+         <div class="account-menu-option"><a class="a-not-link" [routerLink]="['/my-orders/', 'cancelled']">Cancelled Orders</a></div>
          <!--
          <div class="account-menu-title">Wishlist</div>
          <div class="account-menu-option">Name List 1</div>
@@ -29,7 +29,7 @@
              <div class='single-order-box' *ngFor="let order of orders">
                
               <div class='single-order-box-title'>
-                  ID: {{order.id}} <br/>
+                  order id: {{order.id}} <br/>
                   date: {{order.fields['Order received']}} <br/>
                   status: {{order.fields.Status}} <br/>
               </div>
@@ -37,8 +37,14 @@
               <div class='single-order-box-items'>
                  
                  <b>items:</b><br/>
-                 {{order.fields['Items']}};
+                 <div [innerHTML]="order.fields.itemsParsed">
+                 {{order.fields.itemsParsed}}
+                 </div>
 
+              </div>
+
+              <div class='single-order-sum-up'>
+                  <b>total price:</b> ${{order.fields.TotalPrice}}
               </div>
 
 
