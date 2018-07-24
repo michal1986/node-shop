@@ -569,6 +569,16 @@ router.get('/add-to-cart/:id', function(req, res, next) {
 
 
 
+router.get('/remove-item-from-cart/:id', function(req, res, next) {
+        var toBeRemovedItemId = req.params.id;
+        var newCart = new Cart(req.session.cart ? req.session.cart:{});
+        newCart.remove(toBeRemovedItemId);
+        req.session.cart = newCart;
+        res.json(newCart);
+});
+
+
+
 router.get('/add-item-to-cart/:id', function(req, res, next) {
   var productId = req.params.id;
   airtableBase ('Items').find(productId, function(err, record){

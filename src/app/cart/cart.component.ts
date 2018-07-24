@@ -26,14 +26,23 @@ export class CartComponent implements OnInit {
 
   ngOnInit() {
 
-    this.http.get('/api/cart').subscribe(data => {
-    this.cart = data;
-    console.log(this.cart);
-}, err => {
-    if(err.status === 401) {
-    }
-});
-    
+      this.http.get('/api/cart').subscribe(data => {
+          this.cart = data;
+      }, err => {
+          if (err.status === 401) {}
+      });
+
+  }
+
+
+  removeItemFromCart(itemId) {
+      this.http.get('/api/remove-item-from-cart/'+itemId).subscribe(data => {
+          this.http.get('/api/cart').subscribe(data => {
+              this.cart = data;
+          }, err => {
+              if (err.status === 401) {}
+          });
+      });
   }
 
 }

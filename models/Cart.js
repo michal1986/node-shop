@@ -36,6 +36,25 @@ module.exports = function Cart(currentCart) {
     }
 
 
+    this.remove = function(toBeRemoveItemId) {
+        if(toBeRemoveItemId) {
+            if(this.items.length > 0) {
+                var newCart = {};
+                newCart.items = [];
+                for(var i=0; i<this.items.length;i++) {
+                    if(this.items[i].id !== toBeRemoveItemId) {
+                        newCart.items.push(this.items[i]);
+                    }
+                }
+                this.items = newCart.items;
+                var cartTotalAmounts = this.calculateToalPriceAndQuantity();
+                this.totalPrice = parseFloat(cartTotalAmounts.totalSum).toFixed(2);
+                this.totalItemsQuantity = cartTotalAmounts.totalQuantity;
+            }
+        }
+    }
+
+
     this.calculateToalPriceAndQuantity = function() {
         var result = {
             totalSum:0,

@@ -16,8 +16,9 @@
     		<div class="col-4">
     			<img style="width:170px; padding:2px; border:1px solid #EDEDED;" src="{{productInCart.imageUrl}}" />
     		</div>
-    		<div class="col-4 padding-top-42">
+    		<div class="col-8 padding-top-42">
     			{{productInCart.name}} : {{productInCart.quantity}} x ${{productInCart.price}}
+          <span (click)="removeItemFromCart(productInCart.id)" class='cart-remove-item-button'>remove item</span>
     		</div>
             </div>
         

@@ -516,6 +516,14 @@ textarea {
   margin-top: 50px;
 }
 
+.cart-remove-item-button {
+    font-size: 8px;
+    position: absolute;
+    margin-left: 12px;
+    margin-top: 6px;
+    cursor: pointer;
+}
+
 
 .items-details-content-buttons-container {
 
