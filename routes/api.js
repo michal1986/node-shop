@@ -13,6 +13,8 @@ var Cart = require("../models/cart");
 var md5 = require('md5');
 var Airtable = require('airtable');
 
+var myConfig = require('../my-config');
+
 
 var airtableBase = new Airtable({apiKey: 'key2rlTpmEcDJG0jE'}).base('appt5j605NfW5vDOF');
 
@@ -40,7 +42,15 @@ router.get('/products', function(req, res) {
     // This function (`page`) will get called for each page of records.
 
     records.forEach(function(record) {
-      productsArr.push(record);
+        if(typeof record.fields.Price !== 'undefined') {
+            productsArr.push(record);
+        }
+    });
+
+    productsArr.forEach(function(record) {
+        var taxValue = parseFloat(myConfig.tax) * parseFloat(record.fields.Price);
+        record.fields.taxValue = taxValue;
+        record.fields.finalPrice = (parseFloat(record.fields.Price) + parseFloat(taxValue)).toFixed(2);
     });
 
     fetchNextPage();
@@ -75,10 +85,19 @@ router.get('/items', function(req, res) {
   }
   
   airtableBase ('Items').select(airtableParams).eachPage(function page(records, fetchNextPage) {
+
     // This function (`page`) will get called for each page of records.
 
     records.forEach(function(record) {
-      productsArr.push(record);
+        if(typeof record.fields.Price !== 'undefined') {
+            productsArr.push(record);
+        }
+    });
+
+    productsArr.forEach(function(record) {
+        var taxValue = parseFloat(myConfig.tax) * parseFloat(record.fields.Price);
+        record.fields.taxValue = taxValue;
+        record.fields.finalPrice = (parseFloat(record.fields.Price) + parseFloat(taxValue)).toFixed(2);
     });
 
     fetchNextPage();
@@ -174,7 +193,28 @@ router.get('/makers', function(req, res) {
 router.get('/product-details/:id', function(req, res) {
   var product = {};
   var productId = req.params.id;
-  airtableBase ('Products').find(productId, function(err, record){
+  airtableBase ('Products').find(productId, function(err, record) {
+    var taxValue = parseFloat(record.fields.Price*myConfig.tax);
+    record.fields.taxValue = taxValue;
+    record.fields.finalPrice = (parseFloat(record.fields.Price) + parseFloat(taxValue)).toFixed(2);
+    if(err) {
+      console.error(err);
+      return;
+    } else {
+      res.json(record);
+    }
+  });
+});
+
+
+
+router.get('/item-details/:id', function(req, res) {
+  var product = {};
+  var productId = req.params.id;
+  airtableBase ('Items').find(productId, function(err, record) {
+    var taxValue = parseFloat(record.fields.Price*myConfig.tax);
+    record.fields.taxValue = taxValue;
+    record.fields.finalPrice = (parseFloat(record.fields.Price) + parseFloat(taxValue)).toFixed(2);
     if(err) {
       console.error(err);
       return;
@@ -240,13 +280,17 @@ router.post('/confirm-order', function(req, res) {
 
     var nicelyParsedProducts = "";
     for(var i = 0; i<json.length; i++){
+        var priceWithTax = json[i].price+(myConfig.tax*json[i].price);
         if(i == (json.length-1)) {
-            nicelyParsedProducts = nicelyParsedProducts+json[i].quantity+"x "+json[i].name+" (id:"+json[i].id+") - $"+ json[i].price+ " each \n";
+            nicelyParsedProducts = nicelyParsedProducts+json[i].quantity+"x "+json[i].name+" (id:"+json[i].id+") - $"+ json[i].price+ " each(including $"+json[i].taxValue.toFixed(2)+" tax)"+" \n";
         } else {
-            nicelyParsedProducts = nicelyParsedProducts+json[i].quantity+"x "+json[i].name+" (id:"+json[i].id+") - $"+ json[i].price+ " each, \n";
+            nicelyParsedProducts = nicelyParsedProducts+json[i].quantity+"x "+json[i].name+" (id:"+json[i].id+") - $"+ json[i].price+ " each(including $"+json[i].taxValue.toFixed(2)+" tax),"+" \n";
         }
         
     }
+
+
+    var totalPriceWithTax = parseFloat(req.session.cart.totalPrice);
 
 
     airtableBase('Orders').create({
@@ -266,7 +310,7 @@ router.post('/confirm-order', function(req, res) {
             "Zip" : req.body.zip,
             "City" : req.body.city,
             "Country" : req.body.country,
-            "TotalPrice":parseFloat(req.session.cart.totalPrice)
+            "TotalPrice":totalPriceWithTax
     }, function(err, record) {
         if (err) { 
           console.error(err); 
@@ -503,12 +547,16 @@ router.get('/add-to-cart/:id', function(req, res, next) {
         if(typeof record.fields.Pictures[0] !== 'undefined') {
           imageUrl = record.fields.Pictures[0].url;
         }
+        var taxValue = myConfig.tax * formattedPrice;
+        var finalPrice = parseFloat(formattedPrice)+parseFloat(taxValue);
         var newItem = {
             id:record.id,
             name:record.fields.Name,
-            price:formattedPrice,
+            price:finalPrice.toFixed(2),
             quantity:1,
-            imageUrl:imageUrl
+            imageUrl:imageUrl,
+            priceWithoutTax:formattedPrice,
+            taxValue:taxValue
         };
         newCart.add(newItem);
         req.session.cart = newCart;
@@ -534,12 +582,16 @@ router.get('/add-item-to-cart/:id', function(req, res, next) {
         if(typeof record.fields.Fotos[0] !== 'undefined') {
           imageUrl = record.fields.Fotos[0].url;
         }
+        var taxValue = myConfig.tax * formattedPrice;
+        var finalPrice = parseFloat(formattedPrice)+parseFloat(taxValue);
         var newItem = {
             id:record.id,
             name:record.fields.Name,
-            price:formattedPrice,
+            price:finalPrice.toFixed(2),
             quantity:1,
-            imageUrl:imageUrl
+            imageUrl:imageUrl,
+            priceWithoutTax:formattedPrice,
+            taxValue:taxValue
         };
         newCart.add(newItem);
         req.session.cart = newCart;

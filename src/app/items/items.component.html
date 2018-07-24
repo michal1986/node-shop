@@ -19,7 +19,7 @@
       </a>
       <div class="product-name">{{product.fields.Name}}</div>
       <div class="product-brand">{{product.fields.Category}}</div>
-      <div class="product-price">${{product.fields.Price}}</div>
+      <div class="product-price">${{product.fields.finalPrice}}</div>
       <a (click)="addToCart(product.id, product.fields.Price)" class="btn btn-primary add-to-cart-button-small">Add to cart</a>
       <a (click)="addToWishlist(product.id)" class="btn btn-primary add-to-cart-button-small">Add to wishlist</a>
       <br/>
