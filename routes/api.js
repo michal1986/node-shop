@@ -298,9 +298,6 @@ router.post('/confirm-order', function(req, res) {
         "Status": "Ordered",
         "Client": [
         ],
-        "Products": [
-           
-        ],
             "Order received": today,
             "Items" : nicelyParsedProducts,
             "Email" :req.body.email,
