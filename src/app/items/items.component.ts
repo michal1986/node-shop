@@ -15,6 +15,8 @@ import {MatDialog, MatDialogConfig} from "@angular/material";
 export class ItemsComponent implements OnInit {
 
   products:any;
+  featuredProducts:any;
+  kits:any;
   response:any;
   categoryName:String;
   url:string;
@@ -38,6 +40,7 @@ export class ItemsComponent implements OnInit {
                 } else {
                     this.url = "/api/items";
                 }
+                
                 var productsArr = [];
                 this.http.get(this.url).subscribe(data => {
                     this.response = data;
@@ -53,6 +56,48 @@ export class ItemsComponent implements OnInit {
                         }
                     });
                     this.products = productsArr;
+                }, err => {
+                    if (err.status === 401) {
+                        //this.router.navigate(['login']);
+                    }
+                });
+                var kitsUrl = "/api/kits";
+                var kitsArr = [];
+                this.http.get(kitsUrl).subscribe(data => {
+                    this.response = data;
+                    this.response.kits.forEach(kit => {
+                        kit.fields.brandName = makersNameArr[kit.fields.Maker];
+                    });
+                    this.response.kits.forEach(kit => {
+                        kit.fields.Price = kit.fields.Price.toFixed(2);
+                    });
+                    this.response.kits.forEach(kit => {
+                        if (typeof kit.fields.Fotos[0] !== 'undefined') {
+                            kitsArr.push(kit);
+                        }
+                    });
+                    this.kits = kitsArr;
+                }, err => {
+                    if (err.status === 401) {
+                        //this.router.navigate(['login']);
+                    }
+                });
+                var featuredProductsUrl = "/api/featured-items";
+                var featuredProductsArr = [];
+                this.http.get(featuredProductsUrl).subscribe(data => {
+                    this.response = data;
+                    this.response.featuredProducts.forEach(featuredProduct => {
+                        featuredProduct.fields.brandName = makersNameArr[featuredProduct.fields.Maker];
+                    });
+                    this.response.featuredProducts.forEach(featuredProduct => {
+                        featuredProduct.fields.Price = featuredProduct.fields.Price.toFixed(2);
+                    });
+                    this.response.featuredProducts.forEach(featuredProduct => {
+                        if (typeof featuredProduct.fields.Fotos[0] !== 'undefined') {
+                            featuredProductsArr.push(featuredProduct);
+                        }
+                    });
+                    this.featuredProducts = featuredProductsArr;
                 }, err => {
                     if (err.status === 401) {
                         //this.router.navigate(['login']);

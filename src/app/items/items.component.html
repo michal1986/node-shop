@@ -24,64 +24,33 @@
 				Featured Keeps</div>
 		</div>
 		<div class="row row-products">
-			<div class="col-3">
-				<a href="product.html"><img src="../assets/img/1.jpg" width="100%" /></a>
-				<div class="product-name">Aromaflor kit</div>
-				<div class="product-brand">Brand</div>
-				<div class="product-price">USD 0.00</div>
+			<div class="col-3" *ngFor="let product of featuredProducts">
+				<a [routerLink]="['/item/', product.id]">
+            <img class="items-list-mainphoto" src="{{product.fields.Fotos[0].url}}" width="100%" />
+        </a>
+				<div class="product-name">{{product.fields.Name}}</div>
+				<div class="product-brand">{{product.fields.brandName}}</div>
+				<div class="product-price">${{product.fields.finalPrice}}</div>
 			</div>
-			<div class="col-3">
-				<img src="../assets/img/2.jpg" width="100%" />
-				<div class="product-name">Artefacto kromatica</div>
-				<div class="product-brand">Brand</div>
-				<div class="product-price">USD 0.00</div>
-			</div>
-			<div class="col-3">
-				<img src="../assets/img/3.jpg" width="100%" />
-				<div class="product-name">Chanchitico oinktico</div>
-				<div class="product-brand">Brand</div>
-				<div class="product-price">USD 0.00</div>
-			</div>
-			<div class="col-3">
-				<img src="../assets/img/4.jpg" width="100%" />
-				<div class="product-name">Coser food tees</div>
-				<div class="product-brand">Brand</div>
-				<div class="product-price">USD 0.00</div>
-			</div>
-
 
 		</div>
+
+
   <div class="row-title">
   <div class="col-12 col-title">
     KITS</div>
 </div>
-<div class="row row-products">
-  <div class="col-3">
-    <img src="../assets/img/16.jpg" width="100%" />
-    <div class="product-name">BBQ Kit</div>
-    <div class="product-brand">Brand</div>
-    <div class="product-price">USD 0.00</div>
-  </div>
-  <div class="col-3">
-    <img src="../assets/img/17.jpg" width="100%" />
-    <div class="product-name">Beauty and Care Kit</div>
-    <div class="product-brand">Brand</div>
-    <div class="product-price">USD 0.00</div>
-  </div>
-  <div class="col-3">
-    <img src="../assets/img/18.jpg" width="100%" />
-    <div class="product-name">Coffee Kit</div>
-    <div class="product-brand">Brand</div>
-    <div class="product-price">USD 0.00</div>
-  </div>
-  <div class="col-3">
-    <img src="../assets/img/19.jpg" width="100%" />
-    <div class="product-name">Kids Kit</div>
-    <div class="product-brand">Brand</div>
-    <div class="product-price">USD 0.00</div>
-  </div>
+    <div class="row row-products">
+      <div class="col-3" *ngFor="let kit of kits">
+        <a [routerLink]="['/item/', kit.id]">
+            <img class="items-list-mainphoto" src="{{kit.fields.Fotos[0].url}}" width="100%" />
+        </a>
+        <div class="product-name">{{kit.fields.Name}}</div>
+        <div class="product-brand">{{kit.fields.brandName}}</div>
+        <div class="product-price">${{kit.fields.finalPrice}}</div>
+      </div>
 
-</div>
+    </div>
 
 <div class="row-title">
   <div class="col-12 col-title">

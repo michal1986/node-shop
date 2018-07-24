@@ -112,6 +112,101 @@ router.get('/items', function(req, res) {
 });
 
 
+router.get('/featured-items', function(req, res) {
+  var productsArr = [];
+  var params = req.query;
+  var categoryName = "";
+  if(params.category) {
+    var categoryName = params.category.toLowerCase();
+  }
+  
+  if(categoryName.length > 0) {
+    var airtableParams = {
+      view:"Grid view",
+      filterByFormula: "and(LOWER(Category)='"+categoryName+"',{Featured Keep}=1)"
+    }
+  } else {
+    var airtableParams = {
+      view:"Grid view",
+      filterByFormula: "and({Featured Keep}=1)"
+    }
+  }
+  
+  airtableBase ('Items').select(airtableParams).eachPage(function page(records, fetchNextPage) {
+
+    // This function (`page`) will get called for each page of records.
+
+    records.forEach(function(record) {
+        if(typeof record.fields.Price !== 'undefined') {
+            productsArr.push(record);
+        }
+    });
+
+    productsArr.forEach(function(record) {
+        var taxValue = parseFloat(myConfig.tax) * parseFloat(record.fields.Price);
+        record.fields.taxValue = taxValue;
+        record.fields.finalPrice = (parseFloat(record.fields.Price) + parseFloat(taxValue)).toFixed(2);
+    });
+
+    fetchNextPage();
+
+}, function done(err) {
+    if (err) { 
+      console.error(err); return; 
+    }
+    res.json({success: true, featuredProducts:productsArr});
+});
+   
+});
+
+
+router.get('/kits', function(req, res) {
+  var kitsArr = [];
+  var params = req.query;
+  var categoryName = "";
+  if(params.category) {
+    var categoryName = params.category.toLowerCase();
+  }
+  
+  if(categoryName.length > 0) {
+    var airtableParams = {
+      view:"Grid view",
+      filterByFormula: "and(LOWER(Category)='"+categoryName+"',{Kits}=1)"
+    }
+  } else {
+    var airtableParams = {
+      view:"Grid view",
+      filterByFormula: "and({Kits}=1)"
+    }
+  }
+  
+  airtableBase ('Items').select(airtableParams).eachPage(function page(records, fetchNextPage) {
+
+    // This function (`page`) will get called for each page of records.
+
+    records.forEach(function(record) {
+        if(typeof record.fields.Price !== 'undefined') {
+            kitsArr.push(record);
+        }
+    });
+
+    kitsArr.forEach(function(record) {
+        var taxValue = parseFloat(myConfig.tax) * parseFloat(record.fields.Price);
+        record.fields.taxValue = taxValue;
+        record.fields.finalPrice = (parseFloat(record.fields.Price) + parseFloat(taxValue)).toFixed(2);
+    });
+
+    fetchNextPage();
+
+}, function done(err) {
+    if (err) { 
+      console.error(err); return; 
+    }
+    res.json({success: true, kits:kitsArr});
+});
+   
+});
+
 router.get('/records-by-id/', function(req, res) {
   var objectsArr = [];
   var params = req.query;
