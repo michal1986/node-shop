@@ -10,10 +10,10 @@
 <div class="row-title-centered">
 	<div class="col-12 col-title">
 		THEIR STORIES<br /><br />
-		<!--<select>
+		<select>
   <option value="1">Filter by</option>
 
-</select>-->
+</select>
 	</div>
 </div>
 
@@ -23,18 +23,26 @@
 
 
 
-<a [routerLink]="['/maker-story/', maker.id]">
+
 <div class="row justify-content-center">
 
 
-<div class="col-5"><img src="{{maker.fields.Picture[0].url}}" width="100%"/></div>
-<div class="col-5 col-quote"><span class="comillas">"</span>{{maker.fields.Name}}<span class="comillas">"</span>
-	<br />
-	{{maker.fields.Name}} from <span class="brand-name">{{maker.fields.Bio}}</span>
+<div class="col-5"><a [routerLink]="['/maker-story/', maker.id]"><img src="{{maker.fields.Picture[0].url}}" width="100%"/></a></div>
+<div class="col-5 col-quote"><span class="comillas">"</span>Nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper.<span class="comillas">"</span>
+<br />
+  <span class="brand-name">	{{maker.fields.Name}}</span>
 </div>
+</div>
+<div class="row row-more-products">
+	<div class="col-1"></div>
+	<div class="col-2"><img src="../assets/img/Cueropapelytijera-1.jpg" width="100%"/></div>
+	<div class="col-2"><img src="../assets/img/Cueropapelytijera-2.jpg" width="100%"/></div>
+	<div class="col-2"><img src="../assets/img/Cueropapelytijera-kit.jpg" width="100%"/>
+	<div class="more-products">More products</div>
+</div>
+	<div class="col-3"><a [routerLink]="['/maker-story/', maker.id]"><div class="more-from">View complete story</div></a></div>
 </div>
 
-</a>
 
 
 <div class="row row-more-products">
