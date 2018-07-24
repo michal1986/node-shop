@@ -28,17 +28,14 @@
     </div>
 
      <div class="row">
-     	<div class="col-12 text-align-right">
-            <hr/>
-            <b>Total:</b> ${{cart.totalPrice}}
-        </div>
+     	<div class="col-12">
+          <div class="cart-price">  <hr/>
+            <b>Total:</b> ${{cart.totalPrice}}<br /><br />
+                <a [routerLink]="['/order-delivery']" class="btn add-cart3">Checkout</a>
+        </div></div>
     </div>
 
-     <div class="row">
-     	<div class="col-12 text-align-right margin-top-10">
-            <a [routerLink]="['/order-delivery']" class="btn btn-primary add-to-cart-button">Proceed</a>
-        </div>
-    </div>
+
 
 </div>
 
