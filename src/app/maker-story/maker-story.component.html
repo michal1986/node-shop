@@ -1,52 +1,45 @@
 <app-topmenu></app-topmenu>
 
-    <div class="container">
-        <div class="row">
 
-             <div class="col-12"><img src="{{singleMaker.fields['Profile Banner'][0].url}}" width="100%"/></div>
+<div class="container">
+   <div class="row">
+      <div class="col-12"><img src="{{singleMaker.fields['Profile Banner'][0].url}}" width="100%"/></div>
+   </div>
+   <div class="row-title-centered">
+      <div class="col-12 col-title">{{singleMaker.fields.Name}}
+      </div>
+   </div>
+   <div class="row justify-content-center maker-content">
+      <div class="col-md-8">
+         <div [innerHTML]="singleMaker.fields.Bio"></div>
+         <br /><br /><br />
+      </div>
+   </div>
+   <div class="row justify-content-center row-more-products">
+      <div class="col-4" *ngFor="let image of singleMaker.fields['Productos destacados']">
+         <img src="{{image.url}}" width="100%" />
+      </div>
+   </div>
+   <div class="row justify-content-center">
+      <div class="col-8 justify-text">
+         <br /><br /><br />
+         <div [innerHTML]="singleMaker.fields.Detail"></div>
+         <br /><br /><br />
+         <div class="more-products-left">More products by brand name:</div>
+         <br /><br /><br />
+      </div>
+   </div>
+   <div class="row justify-content-center">
+      <div class="col-2 margin-top-15" *ngFor="let product of makerItems">
+         <a [routerLink]="['/item/', product.id]" >
+         <img src="{{product.fields['Fotos'][0].url}}" width="100%" />
+         </a>
+         <br /><br /><br />
+      </div>
+      <div class="clear"></div>
+   </div>
 </div>
 
-<div class="row-title-centered">
-	<div class="col-12 col-title">{{singleMaker.fields.Name}}
-  </div>
-</div>
-
-<div class="row justify-content-center maker-content">
-
-<div class="col-md-8">{{singleMaker.fields.Bio}}<br /><br /><br /></div></div>
-
-
-<div class="row justify-content-center row-more-products">
-	<div class="col-4"><img src="../assets/img/Cueropapelytijera-1.jpg" width="100%"/></div>
-	<div class="col-4"><img src="../assets/img/Cueropapelytijera-2.jpg" width="100%"/></div>
-	<div class="col-4"><img src="../assets/img/Cueropapelytijera-kit.jpg" width="100%"/></div>
-</div>
-
-<div class="row justify-content-center">
-             <div class="col-8 justify-text">
-               <br /><br /><br />
-               {{singleMaker.fields.Detail}}
-                <br /><br /><br />
-<div class="more-products-left">More products by brand name:</div>
-<br /><br /><br />
-             </div>
-
-        </div>
-
-
-        <div class="row justify-content-center">
-
-             <div class="col-2 margin-top-15" *ngFor="let product of makerItems">
-
-                 <a [routerLink]="['/item/', product.id]" >
-                     <img src="{{product.fields['Fotos'][0].url}}" width="100%" />
-                  </a>
-<br /><br /><br />
-             </div>
-             <div class="clear"></div>
-
-        </div>
-
-    </div>
 
 <app-footer></app-footer>
+

@@ -1,61 +1,47 @@
+
+
 <app-topmenu></app-topmenu>
-
-
 <div class="container">
-
-<div class="row">
-<div class="col-12"><img src="assets/img/makers.png" width="100%"/></div>
+   <div class="row">
+      <div class="col-12"><img src="assets/img/makers.png" width="100%"/></div>
+   </div>
+   <div class="row-title-centered">
+      <div class="col-12 col-title">
+         THEIR STORIES<br /><br />
+         <select>
+            <option value="1">Filter by</option>
+         </select>
+      </div>
+   </div>
+   <div *ngFor="let maker of makers">
+      <div class="row row-separator"></div>
+      <div class="row justify-content-center">
+         <div class="col-5"><a [routerLink]="['/maker-story/', maker.id]"><img src="{{maker.fields.Picture[0].url}}" width="100%"/></a></div>
+         <div class="col-5 col-quote"><span class="comillas">"</span>
+         	Nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper.<span class="comillas">"</span>
+            <br />
+            <span class="brand-name">{{maker.fields.Name}}</span>
+         </div>
+      </div>
+      <div class="row row-more-products">
+         <div class="col-1"></div>
+         <div class="col-2" *ngFor="let image of maker.fields['Productos destacados']">
+         	<img src="{{image.url}}" width="100%" />
+         </div>
+         <div class="col-3">
+            <a [routerLink]="['/maker-story/', maker.id]">
+               <div class="more-from">View complete story</div>
+            </a>
+         </div>
+      </div>
+      <div class="row row-more-products">
+         <div class="col-1"></div>
+         <div class="col-2"><img src="" width="100%"/></div>
+         <div class="col-2"><img src="" width="100%"/></div>
+         <div class="col-2"><img src="" width="100%"/></div>
+         <!--<div class="col-3"><div class="more-from">More from "{{maker.fields.Brand}}"</div></div>-->
+      </div>
+   </div>
 </div>
-
-<div class="row-title-centered">
-	<div class="col-12 col-title">
-		THEIR STORIES<br /><br />
-		<select>
-  <option value="1">Filter by</option>
-
-</select>
-	</div>
-</div>
-
-<div *ngFor="let maker of makers">
-
-<div class="row row-separator"></div>
-
-
-
-
-<div class="row justify-content-center">
-
-
-<div class="col-5"><a [routerLink]="['/maker-story/', maker.id]"><img src="{{maker.fields.Picture[0].url}}" width="100%"/></a></div>
-<div class="col-5 col-quote"><span class="comillas">"</span>Nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper.<span class="comillas">"</span>
-<br />
-  <span class="brand-name">	{{maker.fields.Name}}</span>
-</div>
-</div>
-<div class="row row-more-products">
-	<div class="col-1"></div>
-	<div class="col-2"><img src="../assets/img/Cueropapelytijera-1.jpg" width="100%"/></div>
-	<div class="col-2"><img src="../assets/img/Cueropapelytijera-2.jpg" width="100%"/></div>
-	<div class="col-2"><img src="../assets/img/Cueropapelytijera-kit.jpg" width="100%"/>
-	<div class="more-products">More products</div>
-</div>
-	<div class="col-3"><a [routerLink]="['/maker-story/', maker.id]"><div class="more-from">View complete story</div></a></div>
-</div>
-
-
-
-<div class="row row-more-products">
-	<div class="col-1"></div>
-	<div class="col-2"><img src="" width="100%"/></div>
-	<div class="col-2"><img src="" width="100%"/></div>
-	<div class="col-2"><img src="" width="100%"/></div>
-	<!--<div class="col-3"><div class="more-from">More from "{{maker.fields.Brand}}"</div></div>-->
-</div>
-
-
-</div>
-
-</div>
-
 <app-footer></app-footer>
+

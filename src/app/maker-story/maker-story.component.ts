@@ -25,6 +25,8 @@ export class MakerStoryComponent implements OnInit {
 
   ngOnInit() {
 
+    //replace(/\n/g, "<br />"));
+
     this.route.params.subscribe(params => {
       this.singleMakerId = params.id;
           this.http.get('/api/blog-post-details/'+this.singleMakerId).subscribe(data => {
@@ -32,6 +34,8 @@ export class MakerStoryComponent implements OnInit {
               this.singleMaker = this.response;
               var commaSeperatedIds = "";
               var iterator = 0;
+              this.singleMaker.fields.Bio = this.singleMaker.fields.Bio.replace(/\n/g, "<br />");
+              this.singleMaker.fields.Detail = this.singleMaker.fields.Detail.replace(/\n/g, "<br />");
               this.singleMaker.fields.Items.forEach(item => {
                   if(iterator == 0) {
                        commaSeperatedIds = commaSeperatedIds + item;
