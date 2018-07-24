@@ -61,7 +61,7 @@ export class TopmenuComponent implements OnInit {
 
   logout() {
     localStorage.removeItem('jwtToken');
-    this.router.navigate(['home']);
+    this.router.navigate(['items']);
   }
 
 }
