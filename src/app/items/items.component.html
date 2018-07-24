@@ -83,7 +83,7 @@
         ><img class="items-list-mainphoto" src="{{product.fields.Fotos[0].url}}" width="100%" />
     </a>
     <div class="product-name">{{product.fields.Name}}</div>
-    <div class="product-brand">{{product.fields.Category}}</div>
+    <div class="product-brand">{{product.fields.brandName}}</div>
     <div class="product-price">${{product.fields.finalPrice}}</div>
     <a (click)="addToCart(product.id, product.fields.Price)" class="btn add-to-cart-button-small add-cart">Add to cart</a>
     <a (click)="addToWishlist(product.id)" class="btn add-to-cart-button-small add-wish">♥</a>
