@@ -515,3 +515,8 @@ textarea {
 .row-product {
   margin-top: 50px;
 }
+
+
+.items-details-content-buttons {
+    cursor: pointer;
+}

@@ -17,6 +17,7 @@ export class ItemDetailsComponent implements OnInit {
   singleProduct:any;
   singleProductId:string;
   response:any;
+  showContent:string;
 
   constructor(private http: HttpClient, private router: Router, private route: ActivatedRoute, public dialogRef: MatDialog) { 
 
@@ -30,7 +31,14 @@ export class ItemDetailsComponent implements OnInit {
           this.http.get('/api/item-details/'+this.singleProductId).subscribe(data => {
               this.response = data;
               this.singleProduct = this.response;
-              console.log(this.singleProduct );
+              this.showContent = "productDetails";
+              this.http.get('/api/records-by-id/?table=Makers&recordsIds='+this.singleProduct.fields.Maker+'').subscribe(data => {
+                  this.response = data;
+                  if(typeof this.response.objects[0] !== 'undefined') {
+                      var makerObj = this.response.objects[0];
+                      this.singleProduct.fields.brandStory = makerObj.fields.Detail;
+                  }
+              });
           });
       });
 
@@ -57,6 +65,11 @@ addToWishlist(idProduct) {
         this.response = data;
         console.log(this.response);
     });
+}
+
+
+switchContent(contentName) {
+    this.showContent = contentName;
 }
 
 }
