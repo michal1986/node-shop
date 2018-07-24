@@ -6,14 +6,14 @@
 
   <div class="row-title">
     <div class="col-12 col-title">
-      Your cart</div>
+      Your cart</div><br /><br />
   </div>
 
     <div class="row row-products">
 
     	<div *ngFor="let productInCart of cart.items" class="col-12 margin-top-10">
            <div class="row">
-    		<div class="col-4">
+    		<div class="col-2">
     			<img style="width:170px; padding:2px; border:1px solid #EDEDED;" src="{{productInCart.imageUrl}}" />
     		</div>
     		<div class="col-8 padding-top-42">
@@ -21,22 +21,25 @@
           <span (click)="removeItemFromCart(productInCart.id)" class='cart-remove-item-button'>remove item</span>
     		</div>
             </div>
-        
+
     	</div>
 
 
     </div>
 
      <div class="row">
-     	<div class="col-12 text-align-right">
-            <hr/>
-            <b>Total:</b> ${{cart.totalPrice}}
+     	<div class="col-12"><br /><br />
+            <hr/><br />
+            <div class="cart-price">
+
+            <b>Total:</b> ${{cart.totalPrice}}<br /><br />
+            </div>
         </div>
     </div>
 
      <div class="row">
      	<div class="col-12 text-align-right margin-top-10">
-            <a [routerLink]="['/order-delivery']" class="btn btn-primary add-to-cart-button">Proceed</a>
+            <a [routerLink]="['/order-delivery']" class="btn add-to-cart-button proceed-btn">Proceed</a>
         </div>
     </div>
 
@@ -44,5 +47,3 @@
 
 
 <app-footer></app-footer>
-
-
