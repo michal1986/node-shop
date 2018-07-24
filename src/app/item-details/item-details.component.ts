@@ -18,6 +18,7 @@ export class ItemDetailsComponent implements OnInit {
   singleProductId:string;
   response:any;
   showContent:string;
+  slider:any;
 
   constructor(private http: HttpClient, private router: Router, private route: ActivatedRoute, public dialogRef: MatDialog) { 
 
@@ -32,6 +33,7 @@ export class ItemDetailsComponent implements OnInit {
               this.response = data;
               this.singleProduct = this.response;
               this.showContent = "productDetails";
+              this.slider = this.singleProduct.fields["Fotos"];
               this.http.get('/api/records-by-id/?table=Makers&recordsIds='+this.singleProduct.fields.Maker+'').subscribe(data => {
                   this.response = data;
                   if(typeof this.response.objects[0] !== 'undefined') {
@@ -71,5 +73,9 @@ addToWishlist(idProduct) {
 switchContent(contentName) {
     this.showContent = contentName;
 }
+
+ ngOnDestroy() {
+    // this.slider.unsubscribe();
+  }
 
 }

@@ -34,6 +34,8 @@ import { MakerStoryComponent } from './maker-story/maker-story.component';
 import { ItemsComponent } from './items/items.component';
 import { ItemDetailsComponent } from './item-details/item-details.component';
 
+import { UICarouselModule } from 'ng-carousel-iuno'
+
 const appRoutes: Routes = [
   {
     path: 'books',
@@ -185,7 +187,8 @@ const appRoutes: Routes = [
     RouterModule.forRoot(
         appRoutes,
         { enableTracing: true } // <-- debugging purposes only
-    )
+    ),
+    UICarouselModule 
   ],
   entryComponents: [
     AddedToCartDialogComponent,

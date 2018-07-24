@@ -5,7 +5,12 @@
 
             <div class="col-6">
             <div class="product-photo">
-                <img src="{{singleProduct.fields.Fotos[0].url}}" width="100%"/>
+                <ui-carousel [infinite]="true" [fade]="false" [speed]="600" >
+                    <ui-carousel-item *ngFor="let foto of slider">
+                       <img [ui-lazy-load]="foto.url" class="item-details-slider-photo">
+                    </ui-carousel-item>
+                </ui-carousel>
+             
                 <div class="items-details-content-buttons-container">
                     <a class="items-details-content-button" [ngClass]="{selected: showContent==='productDetails'}" (click)="switchContent('productDetails')">
                         Product Details
