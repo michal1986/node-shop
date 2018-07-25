@@ -1,12 +1,14 @@
 <app-topmenu></app-topmenu>
 
 <div class="container">
+  <div class="row justify-content-center">
+    <div class="col-6">
     <form class="form-signin" (ngSubmit)="login()" #loginForm="ngForm">
         <div class="alert alert-warning alert-dismissible" role="alert" *ngIf="message !== ''">
           <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
           {{message}}
         </div>
-        <h2 class="form-signin-heading">Please sign in</h2>
+        <h2 class="form-signin-heading"><br />Please sign in<br /><br /></h2>
         <label for="inputEmail" class="sr-only">Email address</label>
         <input type="email" class="form-control" placeholder="Email address" [(ngModel)]="loginData.username" name="username" required/>
         <label for="inputPassword" class="sr-only">Password</label>
@@ -16,7 +18,7 @@
             Not a user? <a class="link" [routerLink]="['/signup']">Signup here</a>
         </p>
     </form>
-</div>
+</div></div></div>
 
 
 <app-footer></app-footer>

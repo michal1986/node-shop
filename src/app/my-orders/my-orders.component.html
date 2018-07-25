@@ -6,12 +6,12 @@
 <div class="container">
 
    <div class="row row-products">
-      <div class="col-1"></div>
+
       <div class="col-4">
          <div class="account-menu-title">My Account</div>
-         <div class="account-menu-option">Customer Information</div>
-         <div class="account-menu-option">Payment Methods</div>
-         <div class="account-menu-option">Address Book</div>
+         <a class="a-not-link" [routerLink]="['/my-account/']"><div class="account-menu-option">Customer Information</div></a>
+         <!-- <div class="account-menu-option">Payment Methods</div>
+         <div class="account-menu-option">Address Book</div> -->
          <div class="account-menu-title">Orders</div>
          <div class="account-menu-option"><a class="a-not-link" [routerLink]="['/my-orders/', 'paid']">Order History</a></div>
          <div class="account-menu-option"><a class="a-not-link" [routerLink]="['/my-orders/', 'ordered']">Open Orders</a></div>
@@ -22,32 +22,32 @@
          <div class="account-menu-option">Name List 2</div>
           -->
       </div>
-  
-        <div class="col-6">
+
+        <div class="col-7">
          <div class="account-right-title">My orders history</div>
 
              <div class='single-order-box' *ngFor="let order of orders">
-               
+
               <div class='single-order-box-title'>
-                  order id: {{order.id}} <br/>
-                  date: {{order.fields['Order received']}} <br/>
-                  status: {{order.fields.Status}} <br/>
+                  <b>Order ID:</b> {{order.id}} <br/> <br/>
+                  <b>Date:</b> {{order.fields['Order received']}}  <br/><br/>
+                  <b>Status:</b> {{order.fields.Status}} <br/> <br/>
               </div>
 
               <div class='single-order-box-items'>
-                 
-                 <b>items:</b><br/>
+
+                 <b>Items:</b><br/>
                  <div [innerHTML]="order.fields.itemsParsed">
-                 {{order.fields.itemsParsed}}
+                 {{order.fields.itemsParsed}}<br/><br/>
                  </div>
 
               </div>
 
               <div class='single-order-sum-up'>
-                  <b>total price:</b> ${{order.fields.TotalPrice}}
+                  <b>Total price:</b> ${{order.fields.TotalPrice}}
               </div>
-
-
+<br/>
+<hr />
            </div>
 
    </div>
@@ -57,4 +57,3 @@
 </div>
 
 <app-footer></app-footer>
-

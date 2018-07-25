@@ -1,12 +1,15 @@
 <app-topmenu></app-topmenu>
 
 <div class="container">
+
+  <div class="row justify-content-center">
+      <div class="col-10">
     <form class="form-signin" (ngSubmit)="signup()" #signupForm="ngForm">
         <div class="alert alert-warning alert-dismissible" role="alert" *ngIf="message !== ''">
           <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
           {{message}}
         </div>
-        <h2 class="form-signin-heading">Sign Up Right Now</h2>
+        <h2 class="form-signin-heading"><br />Sign Up<br /><br /></h2>
 
         <label for="inputEmail" class="sr-only">Email address</label>
         <input type="email" class="form-control" placeholder="Email address" [(ngModel)]="signupData.username" name="username" required/>
@@ -31,9 +34,15 @@
         <label for="inputCountry" class="sr-only"></label>
         <input type="text" class="form-control" placeholder="Country" [(ngModel)]="signupData.country" name="country" required/>
 
-
+<br />
         <button class="btn btn-lg btn-primary btn-block register-button" type="submit" [disabled]="!signupForm.form.valid">Sign Up</button>
+
+        <p>
+            Already an user? <a class="link" [routerLink]="['/login']">Login here</a>
+        </p>
     </form>
+    </div>
+    </div>
 </div>
 
 

@@ -2,7 +2,7 @@ var mongoose = require('mongoose');
 var passport = require('passport');
 var config = require('../config/database');
 var validator = require("email-validator");
- 
+
 require('../config/passport')(passport);
 var express = require('express');
 var jwt = require('jsonwebtoken');
@@ -26,7 +26,7 @@ router.get('/products', function(req, res) {
   if(params.category) {
     var categoryName = params.category.toLowerCase();
   }
-  
+
   if(categoryName.length > 0) {
     var airtableParams = {
       view:"Grid view",
@@ -37,7 +37,7 @@ router.get('/products', function(req, res) {
       view:"Grid view",
     }
   }
-  
+
   airtableBase ('Products').select(airtableParams).eachPage(function page(records, fetchNextPage) {
     // This function (`page`) will get called for each page of records.
 
@@ -56,12 +56,12 @@ router.get('/products', function(req, res) {
     fetchNextPage();
 
 }, function done(err) {
-    if (err) { 
-      console.error(err); return; 
+    if (err) {
+      console.error(err); return;
     }
     res.json({success: true, products:productsArr});
 });
-   
+
 });
 
 
@@ -72,7 +72,7 @@ router.get('/items', function(req, res) {
   if(params.category) {
     var categoryName = params.category.toLowerCase();
   }
-  
+
   if(categoryName.length > 0) {
     var airtableParams = {
       view:"Grid view",
@@ -83,7 +83,7 @@ router.get('/items', function(req, res) {
       view:"Grid view",
     }
   }
-  
+
   airtableBase ('Items').select(airtableParams).eachPage(function page(records, fetchNextPage) {
 
     // This function (`page`) will get called for each page of records.
@@ -103,12 +103,12 @@ router.get('/items', function(req, res) {
     fetchNextPage();
 
 }, function done(err) {
-    if (err) { 
-      console.error(err); return; 
+    if (err) {
+      console.error(err); return;
     }
     res.json({success: true, products:productsArr});
 });
-   
+
 });
 
 
@@ -119,7 +119,7 @@ router.get('/featured-items', function(req, res) {
   if(params.category) {
     var categoryName = params.category.toLowerCase();
   }
-  
+
   if(categoryName.length > 0) {
     var airtableParams = {
       view:"Grid view",
@@ -131,7 +131,7 @@ router.get('/featured-items', function(req, res) {
       filterByFormula: "and({Featured Keep}=1)"
     }
   }
-  
+
   airtableBase ('Items').select(airtableParams).eachPage(function page(records, fetchNextPage) {
 
     // This function (`page`) will get called for each page of records.
@@ -151,12 +151,12 @@ router.get('/featured-items', function(req, res) {
     fetchNextPage();
 
 }, function done(err) {
-    if (err) { 
-      console.error(err); return; 
+    if (err) {
+      console.error(err); return;
     }
     res.json({success: true, featuredProducts:productsArr});
 });
-   
+
 });
 
 
@@ -167,7 +167,7 @@ router.get('/kits', function(req, res) {
   if(params.category) {
     var categoryName = params.category.toLowerCase();
   }
-  
+
   if(categoryName.length > 0) {
     var airtableParams = {
       view:"Grid view",
@@ -179,7 +179,7 @@ router.get('/kits', function(req, res) {
       filterByFormula: "and({Kits}=1)"
     }
   }
-  
+
   airtableBase ('Items').select(airtableParams).eachPage(function page(records, fetchNextPage) {
 
     // This function (`page`) will get called for each page of records.
@@ -199,12 +199,12 @@ router.get('/kits', function(req, res) {
     fetchNextPage();
 
 }, function done(err) {
-    if (err) { 
-      console.error(err); return; 
+    if (err) {
+      console.error(err); return;
     }
     res.json({success: true, kits:kitsArr});
 });
-   
+
 });
 
 router.get('/records-by-id/', function(req, res) {
@@ -223,12 +223,12 @@ router.get('/records-by-id/', function(req, res) {
       } else {
           buildFormula = buildFormula + "RECORD_ID() = '"+seperateCommas[i]+"', ";
       }
-      
+
   }
 
   buildFormula = buildFormula + ")";
 
-  
+
     var airtableParams = {
       view:"Grid view",
       filterByFormula: buildFormula
@@ -244,13 +244,13 @@ router.get('/records-by-id/', function(req, res) {
     fetchNextPage();
 
 }, function done(err) {
-    if (err) { 
-      console.error(err); return; 
+    if (err) {
+      console.error(err); return;
     }
     res.json({success: true, objects:objectsArr});
 });
 
-   
+
 });
 
 
@@ -274,12 +274,12 @@ router.get('/makers', function(req, res) {
     fetchNextPage();
 
 }, function done(err) {
-    if (err) { 
-      console.error(err); return; 
+    if (err) {
+      console.error(err); return;
     }
     res.json({success: true, makers:makersArr});
 });
-   
+
 });
 
 
@@ -348,17 +348,17 @@ router.get('/blog-posts', function(req, res) {
     fetchNextPage();
 
 }, function done(err) {
-    if (err) { 
-      console.error(err); return; 
+    if (err) {
+      console.error(err); return;
     }
     res.json({success: true, blogPosts:blogPostsArr});
 });
-   
+
 });
 
 
 router.post('/confirm-order', function(req, res) {
-    
+
     var today = new Date();
     var dd = today.getDate();
     var mm = today.getMonth()+1; //January is 0!
@@ -366,10 +366,10 @@ router.post('/confirm-order', function(req, res) {
     var yyyy = today.getFullYear();
     if(dd<10){
         dd='0'+dd;
-    } 
+    }
     if(mm<10){
         mm='0'+mm;
-    }     
+    }
     var today = yyyy+"-"+mm+"-"+dd;
     var json = req.session.cart.items;
 
@@ -381,7 +381,7 @@ router.post('/confirm-order', function(req, res) {
         } else {
             nicelyParsedProducts = nicelyParsedProducts+json[i].quantity+"x "+json[i].name+" (id:"+json[i].id+") - $"+ json[i].price+ " each(including $"+json[i].taxValue.toFixed(2)+" tax),"+" \n";
         }
-        
+
     }
 
 
@@ -404,9 +404,9 @@ router.post('/confirm-order', function(req, res) {
             "Country" : req.body.country,
             "TotalPrice":totalPriceWithTax
     }, function(err, record) {
-        if (err) { 
-          console.error(err); 
-          return; 
+        if (err) {
+          console.error(err);
+          return;
         }
        res.json(record);
     });
@@ -428,7 +428,7 @@ router.get('/blog-post-details/:id', function(req, res) {
 
 router.post('/signup', function(req, res) {
   if (!req.body.username || !req.body.password) {
-    res.json({success: false, msg: 'Please pass valid username and password.'});
+    res.json({success: false, msg: 'Please use a valid username and password.'});
   } else {
     // check if email is valid email
     var testEmail = validator.validate(req.body.username);
@@ -451,7 +451,7 @@ router.post('/signup', function(req, res) {
                 if (err) {
                     return res.json({success: false, msg: 'Username already exists.'});
                 }
-                res.json({success: true, msg: 'Successful created new user.'});
+                res.json({success: true, msg: 'Successfully created your account.'});
             });
             // save to Airtable
             airtableBase('Clients').create({
@@ -467,9 +467,9 @@ router.post('/signup', function(req, res) {
                 "Orders": [
                 ]
             }, function(err, record) {
-              if (err) { 
-                  console.error(err); 
-                  return; 
+              if (err) {
+                  console.error(err);
+                  return;
               }
           })
         } else {
@@ -541,7 +541,7 @@ router.get('/user', passport.authenticate('jwt', { session: false}), function(re
       }
       //res.json(filteredData);
       res.json(decoded);
-      
+
   } else {
     return res.status(403).send({success: false, msg: 'Unauthorized.'});
   }
@@ -592,13 +592,13 @@ router.get('/my-orders', passport.authenticate('jwt', { session: false}), functi
     } else {
         var formula = "and({Email}='"+email+"')";
     }
-    
+
       var ordersArr = [];
       airtableBase ('Orders').select({
           view: "Grid view",
           filterByFormula:formula,
       }).eachPage(function page(records, fetchNextPage) {
-    
+
         records.forEach(function(record) {
             ordersArr.push(record);
         });
@@ -606,9 +606,9 @@ router.get('/my-orders', passport.authenticate('jwt', { session: false}), functi
        fetchNextPage();
 
     }, function done(err) {
-        if (err) { 
+        if (err) {
           console.error(err);
-          return; 
+          return;
         }
         res.json({success: true, orders:ordersArr});
     });
@@ -722,9 +722,9 @@ router.get('/add-to-wishlist/:id', passport.authenticate('jwt', { session: false
                 });
               fetchNextPage();
               }, function done(err) {
-                if (err) { 
+                if (err) {
                   console.error(err);
-                  return; 
+                  return;
                 }
                 console.log(clientArr[0]);
                 if(clientArr[0]) {
@@ -732,9 +732,9 @@ router.get('/add-to-wishlist/:id', passport.authenticate('jwt', { session: false
                         "Client": [clientArr[0].id],
                         "Product": [productId]
                     }, function(err, record) {
-                        if (err) { 
-                            console.error(err); 
-                            return; 
+                        if (err) {
+                            console.error(err);
+                            return;
                         }
                     })
                   };
@@ -744,7 +744,7 @@ router.get('/add-to-wishlist/:id', passport.authenticate('jwt', { session: false
         return res.status(403).send({success: false, msg: 'Unauthorized.'});
       }
 });
-   
+
 
 router.get('/add-item-to-wishlist/:id', passport.authenticate('jwt', { session: false}),function(req, res, next) {
     var token = getToken(req.headers);
@@ -764,9 +764,9 @@ router.get('/add-item-to-wishlist/:id', passport.authenticate('jwt', { session: 
                 });
               fetchNextPage();
               }, function done(err) {
-                if (err) { 
+                if (err) {
                   console.error(err);
-                  return; 
+                  return;
                 }
                 console.log(clientArr[0]);
                 if(clientArr[0]) {
@@ -774,9 +774,9 @@ router.get('/add-item-to-wishlist/:id', passport.authenticate('jwt', { session: 
                         "Client": [clientArr[0].id],
                         "Product": [productId]
                     }, function(err, record) {
-                        if (err) { 
-                            console.error(err); 
-                            return; 
+                        if (err) {
+                            console.error(err);
+                            return;
                         }
                     })
                   };
