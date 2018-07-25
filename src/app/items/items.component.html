@@ -59,8 +59,8 @@
         <div class="product-name">{{kit.fields.Name}}</div>
         <div class="product-brand">{{kit.fields.brandName}}</div>
         <div class="product-price">${{kit.fields.finalPrice}}</div>
-        <a (click)="addToCart(product.id, product.fields.Price)" class="btn add-to-cart-button-small add-cart">Add to cart</a>
-        <a (click)="addToWishlist(product.id)" class="btn add-to-cart-button-small add-wish">♥</a>
+        <a (click)="addToCart(kit.id, kit.fields.Price)" class="btn add-to-cart-button-small add-cart">Add to cart</a>
+        <a (click)="addToWishlist(kit.id)" class="btn add-to-cart-button-small add-wish">♥</a>
       </div>
 
     </div>
