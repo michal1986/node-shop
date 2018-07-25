@@ -17,6 +17,7 @@ export class OrderConfirmedDialogComponent implements OnInit {
 
  closeDialog() {
     this.dialogRef.close();
+    this.router.navigate(['items']);
   }
 
 }
