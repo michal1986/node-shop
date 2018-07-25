@@ -33,8 +33,10 @@ import { PaymentResultComponent } from './payment-result/payment-result.componen
 import { MakerStoryComponent } from './maker-story/maker-story.component';
 import { ItemsComponent } from './items/items.component';
 import { ItemDetailsComponent } from './item-details/item-details.component';
+import { AppMyPagination } from "./app.my.pagination";
 
 import { UICarouselModule } from 'ng-carousel-iuno'
+import { NgxPaginationModule } from 'ngx-pagination'; 
 
 const appRoutes: Routes = [
   {
@@ -176,7 +178,8 @@ const appRoutes: Routes = [
     PaymentResultComponent,
     MakerStoryComponent,
     ItemsComponent,
-    ItemDetailsComponent
+    ItemDetailsComponent,
+    AppMyPagination
   ],
   imports: [
     BrowserModule,
@@ -188,7 +191,8 @@ const appRoutes: Routes = [
         appRoutes,
         { enableTracing: true } // <-- debugging purposes only
     ),
-    UICarouselModule 
+    UICarouselModule,
+    NgxPaginationModule
   ],
   entryComponents: [
     AddedToCartDialogComponent,

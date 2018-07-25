@@ -65,10 +65,96 @@ router.get('/products', function(req, res) {
 });
 
 
-router.get('/items', function(req, res) {
+router.get('/items-pagination', function(req, res) {
+  
+  var maxRecords = myConfig.itemsPerPage;
   var productsArr = [];
+  var paginatedProductsArr = [];
+  var params = req.query;
+  var askedPage = 1;
+  if(params.page) {
+      askedPage = params.page;
+  }
+
+  if(!req.session.cachedItems || req.session.cachedItems.length == 0) {
+
+
+  var categoryName = "";
+  var pageOffsetsArr = [];
+  if(params.category) {
+    var categoryName = params.category.toLowerCase();
+  }
+
+  var fields = ["Fotos", "Name", "Price", "Maker"];
+
+  if(categoryName.length > 0) {
+    var airtableParams = {
+      view:"Grid view",
+      filterByFormula: "and(LOWER(Category)='"+categoryName+"')",
+      //maxRecords:maxRecords,
+      pageSize:20,
+      fields:fields
+    }
+  } else {
+    var airtableParams = {
+      view:"Grid view",
+      //maxRecords:maxRecords,
+      pageSize:20,
+      fields:fields
+    }
+  }
+
+  var pageNumber = 1;
+
+
+  airtableBase ('Items').select(airtableParams).eachPage(function page(records, fetchNextPage) {
+
+    // This function (`page`) will get called for each page of records.
+
+    pageNumber++;
+
+    records.forEach(function(record) {
+        if(typeof record.fields.Price !== 'undefined') {
+            productsArr.push(record);
+            paginatedProductsArr[pageNumber] = record;
+            console.log(record);
+        }
+    });
+
+    productsArr.forEach(function(record) {
+        var taxValue = parseFloat(myConfig.tax) * parseFloat(record.fields.Price);
+        record.fields.taxValue = taxValue;
+        record.fields.finalPrice = (parseFloat(record.fields.Price) + parseFloat(taxValue)).toFixed(2);
+    });
+
+    fetchNextPage();
+
+}, function done(err) {
+    if (err) {
+      console.error(err); return;
+    }
+    res.json({success: true, products:productsArr, method:'fetched'});
+});
+
+} else {
+      console.log(req.session.cachedItems);
+    res.json({success: true, products:req.session.cachedItems[askedPage], method:'cached'});
+}
+
+});
+
+
+
+router.get('/items-total-number', function(req, res) {
+  var productsArr = [];
+  var paginatedProducts = [];
   var params = req.query;
   var categoryName = "";
+  var maxRecords = 20;
+  var pageNumber = 0;
+  req.session.cachedItems = [];
+  var fields = ["Fotos", "Name", "Price", "Maker"];
+  var totalRecords = 0;
   if(params.category) {
     var categoryName = params.category.toLowerCase();
   }
@@ -76,13 +162,80 @@ router.get('/items', function(req, res) {
   if(categoryName.length > 0) {
     var airtableParams = {
       view:"Grid view",
-      filterByFormula: "and(LOWER(Category)='"+categoryName+"')"
+      filterByFormula: "and(LOWER(Category)='"+categoryName+"')",
+      fields:fields,
+      pageSize:maxRecords
     }
   } else {
     var airtableParams = {
       view:"Grid view",
+      fields:fields,
+      pageSize:maxRecords
     }
   }
+
+
+  airtableBase ('Items').select(airtableParams).eachPage(function page(records, fetchNextPage) {
+
+    // This function (`page`) will get called for each page of records.
+
+    pageNumber++;
+    if(!paginatedProducts[pageNumber]) {
+        paginatedProducts[pageNumber] = [];
+    }
+
+    records.forEach(function(record) {
+        if(typeof record.fields.Price !== 'undefined') {
+            productsArr.push(record);
+            paginatedProducts[pageNumber].push(record);
+        }
+        totalRecords++;
+    });
+
+    productsArr.forEach(function(record) {
+        var taxValue = parseFloat(myConfig.tax) * parseFloat(record.fields.Price);
+        record.fields.taxValue = taxValue;
+        record.fields.finalPrice = (parseFloat(record.fields.Price) + parseFloat(taxValue)).toFixed(2);
+    });
+
+    fetchNextPage();
+
+}, function done(err) {
+    if (err) {
+      console.error(err); return;
+    }
+    req.session.cachedItems = paginatedProducts;
+    res.json({success: true, total:totalRecords, paginatedProducts:paginatedProducts, pageNumber:pageNumber});
+});
+
+});
+
+
+router.get('/items', function(req, res) {
+  var productsArr = [];
+  var params = req.query;
+  var categoryName = "";
+  var maxRecords = myConfig.itemsPerPage;
+  var fields = ["Fotos", "Name", "Price", "Maker"];
+  if(params.category) {
+    var categoryName = params.category.toLowerCase();
+  }
+
+  if(categoryName.length > 0) {
+    var airtableParams = {
+      view:"Grid view",
+      filterByFormula: "and(LOWER(Category)='"+categoryName+"')",
+      pageSize:maxRecords,
+      fields:fields
+    }
+  } else {
+    var airtableParams = {
+      view:"Grid view",
+      pageSize:maxRecords,
+      fields:fields
+    }
+  }
+
 
   airtableBase ('Items').select(airtableParams).eachPage(function page(records, fetchNextPage) {
 

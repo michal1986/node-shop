@@ -20,47 +20,36 @@ export class ItemsComponent implements OnInit {
   response:any;
   categoryName:String;
   url:string;
+  itemsTotal:number;
+  hidePagination:boolean;
+  makersNames:any;
+  requestedItemsPage:number;
+  currentPage:number;
 
   constructor(private http: HttpClient, private router: Router, private route: ActivatedRoute, public dialogRef: MatDialog) { }
 
     ngOnInit() {
-
+        
+        this.hidePagination = true;
+        this.currentPage = 1;
         this.products = [];
         var makersUrl = "/api/makers";
         var makersNameArr = {};
         this.route.queryParams.subscribe(params => {
+            let totalItemsCounterUrl = "/api/items-total-number";
+            this.http.get(totalItemsCounterUrl).subscribe(data => {
+                this.response = data;
+                this.itemsTotal = this.response.total;
+                this.hidePagination = false;
+            });
             this.http.get(makersUrl).subscribe(data => {
                 this.response = data;
                 this.response.makers.forEach(maker => {
                     makersNameArr[maker.id] = maker.fields.Name;
                 });
                 this.categoryName = params.category;
-                if (this.categoryName) {
-                    this.url = "/api/items?category=" + this.categoryName;
-                } else {
-                    this.url = "/api/items";
-                }
-                
-                var productsArr = [];
-                this.http.get(this.url).subscribe(data => {
-                    this.response = data;
-                    this.response.products.forEach(product => {
-                        product.fields.brandName = makersNameArr[product.fields.Maker];
-                    });
-                    this.response.products.forEach(product => {
-                        product.fields.Price = product.fields.Price.toFixed(2);
-                    });
-                    this.response.products.forEach(product => {
-                        if (typeof product.fields.Fotos[0] !== 'undefined') {
-                            productsArr.push(product);
-                        }
-                    });
-                    this.products = productsArr;
-                }, err => {
-                    if (err.status === 401) {
-                        //this.router.navigate(['login']);
-                    }
-                });
+                this.makersNames = makersNameArr;
+                this.fetchItems(this.categoryName, 1);
                 var kitsUrl = "/api/kits";
                 var kitsArr = [];
                 this.http.get(kitsUrl).subscribe(data => {
@@ -131,6 +120,44 @@ export class ItemsComponent implements OnInit {
             this.response = data;
             console.log(this.response);
         });
+    }
+
+
+    fetchItems(category, page) {
+        if(category) {
+            this.url = "/api/items-pagination?page="+page+"&category=" + category;
+        } else {
+            this.url = "/api/items-pagination?page="+page;
+        }
+        if(!page) {
+            this.requestedItemsPage = 1;
+        } else {
+            this.requestedItemsPage = page;
+        }
+        var productsArr = [];
+        this.http.get(this.url).subscribe(data => {
+            this.response = data;
+            this.response.products.forEach(product => {
+                product.fields.brandName = this.makersNames[product.fields.Maker];
+            });
+            this.response.products.forEach(product => {
+                product.fields.Price = product.fields.Price.toFixed(2);
+            });
+            this.response.products.forEach(product => {
+                if (typeof product.fields.Fotos[0] !== 'undefined') {
+                    productsArr.push(product);
+                 }
+             });
+         this.products = productsArr;
+         }, err => {
+             if (err.status === 401) {
+              }
+         });
+    }
+
+    changePage($event) {
+        this.fetchItems(false, $event);
+        this.currentPage = $event;
     }
 
 }
