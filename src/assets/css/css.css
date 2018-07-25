@@ -28,8 +28,17 @@ html, body {
   letter-spacing: 1px;
   color: #6E7680;
 }
+a{
+color: #6E7680;
+}
+
+a:hover{
+color: #000;
+}
+#ups{display: inline-block;width: 20px;}
 .form-signin[_ngcontent-c1]{width: 100%;}
 .form-signin input{width: 100%!important;}
+.single-order-box{border:thin solid #c1c1c1; margin-bottom: 20px; padding: 20px;}
 .justify-text{text-align: justify;}
 .col-logo img {
   margin: 20px;
@@ -394,6 +403,7 @@ input {
   padding: 5px;
   margin-top: 5px;
   border: none;
+  background-color: #FFF;
 }
 
 textarea {
@@ -606,7 +616,7 @@ textarea {
 }
 
 .carousel{height: 500px!important;background-color: #f1f1f1!important;}
-.ui-carousel-item[_ngcontent-c4]{height: 500px!important;
+.ui-carousel-item{height: 500px!important;
 width: 100%;
 background-color: #f1f1f1!important;
 position: absolute;

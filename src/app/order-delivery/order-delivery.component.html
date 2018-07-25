@@ -1,12 +1,15 @@
 <app-topmenu></app-topmenu>
 
 <div class="container">
+
+<div class="row justify-content-center">
+  <div class="col-8">
   <form class="form-signin" (ngSubmit)="confirm()" #confirmDeliveryForm="ngForm">
       <div class="alert alert-warning alert-dismissible" role="alert" *ngIf="message !== ''">
         <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
         {{message}}
       </div>
-      <h2 class="form-signin-heading">Delivery Address</h2>
+      <h2 class="form-signin-heading"><br />Delivery Address<br /><br /></h2>
 
       <label for="inputFirstName" class="sr-only">First Name</label>
       <input type="text" class="form-control" placeholder="First Name" [(ngModel)]="confirmDelivery.firstName" name="firstName" required/>
@@ -22,28 +25,36 @@
       <input type="text" class="form-control" placeholder="City" [(ngModel)]="confirmDelivery.city" name="city" required/>
       <label for="inputCountry" class="sr-only"></label>
       <input type="text" class="form-control" placeholder="Country" [(ngModel)]="confirmDelivery.country" name="country" required/>
-      
-
+<br />
       <button class="btn btn-lg btn-primary btn-block register-button margin-top-10" type="submit" [disabled]="!confirmDeliveryForm.form.valid">Confirm Order</button>
+
   </form>
-</div>
+
+  <h2 class="form-signin-heading"><br />Transaction<br /><br /></h2>
+
 
 <form name="CredomaticPost" id="payment-form" method="post" #paymentForm="ngForm" #paymentFormRef (ngSubmit)="payment()" action="https://credomatic.compassmerchantsolutions.com/api/transact.php">
+<input type="text"  class="form-control" name="type" value="sale"/>
+<input type="text"  class="form-control" name="key_id" value="9366621"/>
+<input type="text"  class="form-control" name="hash" [(ngModel)]="paymentData.hash" />
+<input type="text"  class="form-control" name="time" [(ngModel)]="paymentData.time" />
+<input type="text"  class="form-control" name="cvv" value="345"/>
+<input type="text"  class="form-control" name="ccnumber" value="4012001011000771"/>
+<input type="text"  class="form-control" name="ccexp" value="1220"/>
+<input type="text"  class="form-control" name="amount" value="1.00"/>
+<input type="text"  class="form-control" name="orderid" value="test1"/>
+<input type="text"  class="form-control" name="redirect" value="http://localhost:3333/payment-result"/>
+<br />
+<input type="checkbox" id="ups" name="feature" value="horns" width="20px" />
+<label for="horns">Enable UPS Delivery</label>
 
-<input type="text" name="type" value="sale"/> 
-<input type="text" name="key_id" value="9366621"/>
-<input type="text" name="hash" [(ngModel)]="paymentData.hash" />
-<input type="text" name="time" [(ngModel)]="paymentData.time" />
-<input type="text" name="cvv" value="345"/>
-<input type="text" name="ccnumber" value="4012001011000771"/>
-<input type="text" name="ccexp" value="1220"/>
-<input type="text" name="amount" value="1.00"/>
-<input type="text" name="orderid" value="test1"/>
-<input type="text" name="redirect" value="http://localhost:3333/payment-result"/>
-<input type="submit" value="Enviar Transacción"/>
-
+<input type="submit" class="btn btn-lg btn-primary btn-block register-button margin-top-10" value="Enviar Transacción"/>
 </form>
 
+
+
+
+</div></div></div>
 
 
 <app-footer></app-footer>
