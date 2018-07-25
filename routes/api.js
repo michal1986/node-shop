@@ -92,14 +92,14 @@ router.get('/items-pagination', function(req, res) {
       view:"Grid view",
       filterByFormula: "and(LOWER(Category)='"+categoryName+"')",
       //maxRecords:maxRecords,
-      pageSize:20,
+      pageSize:maxRecords,
       fields:fields
     }
   } else {
     var airtableParams = {
       view:"Grid view",
       //maxRecords:maxRecords,
-      pageSize:20,
+      pageSize:maxRecords,
       fields:fields
     }
   }

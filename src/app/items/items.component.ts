@@ -146,6 +146,7 @@ export class ItemsComponent implements OnInit {
             this.response.products.forEach(product => {
                 if (typeof product.fields.Fotos[0] !== 'undefined') {
                     productsArr.push(product);
+                    new Image().src = product.fields.Fotos[0];
                  }
              });
          this.products = productsArr;

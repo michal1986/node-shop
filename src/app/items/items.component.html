@@ -35,7 +35,7 @@
 		<div class="row row-products">
 			<div class="col-3" *ngFor="let product of featuredProducts">
 				<a [routerLink]="['/item/', product.id]">
-            <img class="items-list-mainphoto" src="{{product.fields.Fotos[0].url}}" width="100%" />
+            <img class="items-list-mainphoto" src="{{product.fields.Fotos[0].thumbnails.large.url}}" width="100%" />
         </a>
 				<div class="product-name">{{product.fields.Name}}</div>
 				<div class="product-brand">{{product.fields.brandName}}</div>
@@ -54,7 +54,7 @@
     <div class="row row-products">
       <div class="col-3" *ngFor="let kit of kits">
         <a [routerLink]="['/item/', kit.id]">
-            <img class="items-list-mainphoto" src="{{kit.fields.Fotos[0].url}}" width="100%" />
+            <img class="items-list-mainphoto" src="{{kit.fields.Fotos[0].thumbnails.large.url}}" width="100%" />
         </a>
         <div class="product-name">{{kit.fields.Name}}</div>
         <div class="product-brand">{{kit.fields.brandName}}</div>
@@ -72,7 +72,7 @@
 <div class="row">
   <div class="col-3 col-items" *ngFor="let product of products | paginate: { itemsPerPage: 20, currentPage: currentPage, id: 'itemsPagination', totalItems: itemsTotal}">
     <a [routerLink]="['/item/', product.id]"
-        ><img class="items-list-mainphoto" src="{{product.fields.Fotos[0].url}}" width="100%" />
+        ><img class="items-list-mainphoto" src="{{product.fields.Fotos[0].thumbnails.large.url}}" width="100%" />
     </a>
     <div class="product-name">{{product.fields.Name}}</div>
     <div class="product-brand">{{product.fields.brandName}}</div>
