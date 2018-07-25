@@ -13,7 +13,7 @@
 
     	<div *ngFor="let productInCart of cart.items" class="col-12 margin-top-10">
            <div class="row">
-    		<div class="col-4">
+    		<div class="col-2">
     			<img style="width:170px; padding:2px; border:1px solid #EDEDED;" src="{{productInCart.imageUrl}}" />
     		</div>
     		<div class="col-8 padding-top-42">
@@ -28,8 +28,8 @@
     </div>
 
      <div class="row">
-     	<div class="col-12">
-          <div class="cart-price">  <hr/>
+     	<div class="col-12"><hr/>
+          <div class="cart-price">
             <b>Total:</b> ${{cart.totalPrice}}<br /><br />
                 <a [routerLink]="['/order-delivery']" class="btn add-cart3">Checkout</a>
         </div></div>
